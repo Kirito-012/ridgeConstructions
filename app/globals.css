@@ -1,0 +1,454 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+	/* Light Theme Colors */
+	--background: #ffffff;
+	--foreground: #0a0a0a;
+	--card: #fafafa;
+	--card-foreground: #0a0a0a;
+	--popover: #ffffff;
+	--popover-foreground: #0a0a0a;
+	--primary: #e55a24;
+	--primary-foreground: #ffffff;
+	--secondary: #f5f5f5;
+	--secondary-foreground: #0a0a0a;
+	--muted: #f5f5f5;
+	--muted-foreground: #737373;
+	--accent: #e55a24;
+	--accent-foreground: #ffffff;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+	--border: #e5e5e5;
+	--border-color: #e5e5e5;
+	--input: #f5f5f5;
+	--ring: #e55a24;
+	--chart-1: #ff6b35;
+	--chart-2: #4ade80;
+	--chart-3: #60a5fa;
+	--chart-4: #fbbf24;
+	--chart-5: #a78bfa;
+	--radius: 0.625rem;
+	--sidebar: #fafafa;
+	--sidebar-foreground: #0a0a0a;
+	--sidebar-primary: #e55a24;
+	--sidebar-primary-foreground: #ffffff;
+	--sidebar-accent: #f5f5f5;
+	--sidebar-accent-foreground: #0a0a0a;
+	--sidebar-border: #e5e5e5;
+	--sidebar-ring: #e55a24;
+	--accent-dark: #c94d1d;
+	--text-secondary: #737373;
+}
+
+.dark {
+	/* Dark Theme Colors - Your Original */
+	--background: #000000;
+	--foreground: #ffffff;
+	--card: #0a0a0a;
+	--card-foreground: #ffffff;
+	--popover: #000000;
+	--popover-foreground: #ffffff;
+	--primary: #ffffff;
+	--primary-foreground: #000000;
+	--secondary: #1a1a1a;
+	--secondary-foreground: #ffffff;
+	--muted: #1a1a1a;
+	--muted-foreground: #999999;
+	--accent: #ff6b35;
+	--accent-foreground: #000000;
+	--destructive: #ef4444;
+	--destructive-foreground: #ffffff;
+	--border: #333333;
+	--border-color: #333333;
+	--input: #1a1a1a;
+	--ring: #ff6b35;
+	--chart-1: #ff6b35;
+	--chart-2: #4ade80;
+	--chart-3: #60a5fa;
+	--chart-4: #fbbf24;
+	--chart-5: #a78bfa;
+	--sidebar: #000000;
+	--sidebar-foreground: #ffffff;
+	--sidebar-primary: #ff6b35;
+	--sidebar-primary-foreground: #000000;
+	--sidebar-accent: #1a1a1a;
+	--sidebar-accent-foreground: #ffffff;
+	--sidebar-border: #333333;
+	--sidebar-ring: #ff6b35;
+	--accent-dark: #e55a24;
+	--text-secondary: #999999;
+}
+
+@theme inline {
+	--font-sans: 'Geist', 'Geist Fallback';
+	--font-mono: 'Geist Mono', 'Geist Mono Fallback';
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+	--color-chart-1: var(--chart-1);
+	--color-chart-2: var(--chart-2);
+	--color-chart-3: var(--chart-3);
+	--color-chart-4: var(--chart-4);
+	--color-chart-5: var(--chart-5);
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+	--color-sidebar: var(--sidebar);
+	--color-sidebar-foreground: var(--sidebar-foreground);
+	--color-sidebar-primary: var(--sidebar-primary);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+	--color-sidebar-accent: var(--sidebar-accent);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-ring);
+}
+
+.hero_heading_font {
+	--tw-font-weight: var(--font-weight-black) /* 900 */;
+	font-weight: var(--font-weight-black) /* 900 */;
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+	}
+
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+/* Light Theme Specific Overrides */
+section {
+	background-color: var(--background);
+}
+
+/* Update navbar for light theme */
+nav {
+	background-color: rgba(255, 255, 255, 0.95);
+	border-bottom-color: var(--border-color);
+}
+
+.dark nav {
+	background-color: rgba(0, 0, 0, 0.9);
+	border-bottom-color: #333333;
+}
+
+nav a {
+	color: var(--foreground);
+}
+
+nav a:hover {
+	color: var(--accent);
+}
+
+/* Hero section light theme */
+#home {
+	background-color: var(--background);
+}
+
+#home h1,
+#home h2 {
+	color: var(--foreground);
+}
+
+#home p {
+	color: var(--text-secondary);
+}
+
+/* Mission section light theme */
+#mission {
+	background: linear-gradient(
+		to bottom,
+		var(--background),
+		var(--card),
+		var(--background)
+	);
+}
+
+.dark #mission {
+	background: linear-gradient(to bottom, #000000, #0a0a0a, #000000);
+}
+
+#mission h2,
+#mission h3 {
+	color: var(--foreground) !important;
+}
+
+#mission p {
+	color: var(--text-secondary) !important;
+}
+
+#mission .group {
+	background: var(--card) !important;
+	border-color: var(--border-color) !important;
+}
+
+#mission .group:hover {
+	border-color: var(--accent) !important;
+}
+
+.dark #mission .group:hover {
+	box-shadow: 0 20px 50px rgba(255, 107, 53, 0.2) !important;
+}
+
+#mission .group:hover {
+	box-shadow: 0 20px 50px rgba(229, 90, 36, 0.1) !important;
+}
+
+/* Services section */
+.bg-black {
+	background-color: var(--background) !important;
+}
+
+.dark .bg-black {
+	background-color: #000000 !important;
+}
+
+.text-white {
+	color: var(--foreground) !important;
+}
+
+.text_white {
+	color: white;
+}
+
+.text-gray-300,
+.text-gray-400 {
+	color: var(--text-secondary) !important;
+}
+
+.bg-white\/5 {
+	background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+.dark .bg-white\/5 {
+	background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.border-white\/10 {
+	border-color: var(--border-color) !important;
+}
+
+.dark .border-white\/10 {
+	border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Footer */
+footer {
+	background-color: var(--card) !important;
+	border-top-color: var(--border-color) !important;
+}
+
+.dark footer {
+	background-color: #000000 !important;
+}
+
+footer h4 {
+	color: var(--foreground) !important;
+}
+
+footer p,
+footer a {
+	color: var(--text-secondary) !important;
+}
+
+footer a:hover {
+	color: var(--accent) !important;
+}
+
+/* Hero2 section */
+section.relative.min-h-screen .bg-gradient-to-b {
+	background: linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 0.9),
+		rgba(255, 255, 255, 0.7),
+		rgba(255, 255, 255, 0.9)
+	);
+}
+
+.dark section.relative.min-h-screen .bg-gradient-to-b {
+	background: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0.8),
+		rgba(0, 0, 0, 0.5),
+		rgba(0, 0, 0, 0.9)
+	);
+}
+
+section.relative.min-h-screen h1 {
+	color: var(--foreground) !important;
+}
+
+.dark section.relative.min-h-screen h1 {
+	color: #ffffff !important;
+}
+
+section.relative.min-h-screen p {
+	color: var(--text-secondary) !important;
+}
+
+.dark section.relative.min-h-screen p {
+	color: #999999 !important;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes slideInLeft {
+	from {
+		opacity: 0;
+		transform: translateX(-40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes scaleIn {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+.animate-fade-in-up {
+	animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-fade-in {
+	animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+	animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+	animation: slideInRight 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+	animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animation-delay-1 {
+	animation-delay: 0.1s;
+}
+
+.animation-delay-2 {
+	animation-delay: 0.2s;
+}
+
+/* Utility to apply Geist font variable from layout.js */
+.font-geist {
+	font-family: var(--font-geist-sans) !important;
+}
+
+/* Ensure active nav link uses accent color */
+nav a[aria-current="page"] {
+	color: var(--accent) !important;
+	font-weight: 700;
+}
+
+/* Fallback active class for navigation (highest priority) */
+.active-nav {
+	color: var(--accent) !important;
+	font-weight: 700 !important;
+}
+.animation-delay-3 {
+	animation-delay: 0.3s;
+}
+
+.animation-delay-4 {
+	animation-delay: 0.4s;
+}
+
+/* Force Always White Text — beats both dark & light themes */
+.text-always-white,
+.text-always-white * {
+	color: #ffffff !important;
+	--tw-text-opacity: 1 !important;
+}
+
+/* For icons and SVGs inside buttons */
+.btn-always-white,
+.btn-always-white * {
+	color: #ffffff !important;
+	fill: #ffffff !important;
+	stroke: #ffffff !important;
+	--tw-text-opacity: 1 !important;
+}
+
+/* Phone button - white by default, black on hover */
+.phone-btn,
+.phone-btn * {
+	color: #ffffff !important;
+	fill: #ffffff !important;
+	stroke: #ffffff !important;
+	transition: color 0.3s ease, fill 0.3s ease, stroke 0.3s ease;
+}
+
+.phone-btn:hover,
+.phone-btn:hover * {
+	color: #000000 !important;
+	fill: #000000 !important;
+	stroke: #000000 !important;
+}

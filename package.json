@@ -1,0 +1,25 @@
+{
+  "name": "construction",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "framer-motion": "^12.23.24",
+    "lucide-react": "^0.553.0",
+    "cloudinary": "^1.41.3",
+    "bcryptjs": "^2.4.3",
+    "mongodb": "^6.10.0",
+    "next": "16.0.1",
+    "react": "19.2.0",
+    "react-dom": "19.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "babel-plugin-react-compiler": "1.0.0",
+    "tailwindcss": "^4"
+  }
+}
