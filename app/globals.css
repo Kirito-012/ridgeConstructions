@@ -452,3 +452,13 @@ nav a[aria-current="page"] {
 	fill: #000000 !important;
 	stroke: #000000 !important;
 }
+
+/* Hide scrollbar for lightbox thumbnails */
+.scrollbar-hide {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+	display: none;
+}

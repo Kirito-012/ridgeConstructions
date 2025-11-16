@@ -184,6 +184,7 @@ function WorkCard({work, index, onClick}) {
 export default function OurWorkPage() {
 	const [works, setWorks] = useState([])
 	const [loading, setLoading] = useState(true)
+	const [navigating, setNavigating] = useState(false)
 	const [error, setError] = useState(null)
 	const router = useRouter()
 
@@ -196,7 +197,7 @@ export default function OurWorkPage() {
 
 				// Preload title images for better performance
 				const titleImages = loadedWorks.map((w) => w.image).filter(Boolean)
-				preloadImages(titleImages)
+				await preloadImages(titleImages)
 
 				setError(null)
 			} catch (err) {
@@ -210,8 +211,13 @@ export default function OurWorkPage() {
 		loadWorks()
 	}, [])
 
-	const handleCardClick = (work) => {
-		router.push(`/our-works/${work.slug}`)
+	const handleCardClick = async (work) => {
+		setNavigating(true)
+
+		// Small delay for visual feedback
+		setTimeout(() => {
+			router.push(`/our-works/${work.slug}`)
+		}, 150)
 	}
 
 	if (loading) {
@@ -242,6 +248,26 @@ export default function OurWorkPage() {
 
 	return (
 		<div className='min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8'>
+			{/* Navigation loading overlay */}
+			{navigating && (
+				<motion.div
+					initial={{opacity: 0}}
+					animate={{opacity: 1}}
+					className='fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center'>
+					<div className='text-center'>
+						<div className='relative inline-block'>
+							<div className='animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent'></div>
+							<div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+								<div className='w-8 h-8 bg-accent/20 rounded-full animate-pulse'></div>
+							</div>
+						</div>
+						<p className='mt-6 text-lg text-foreground font-medium'>
+							Loading project...
+						</p>
+					</div>
+				</motion.div>
+			)}
+
 			<motion.div
 				initial={{opacity: 0, y: 20}}
 				whileInView={{opacity: 1, y: 0}}
