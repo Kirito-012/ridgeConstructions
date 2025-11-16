@@ -85,23 +85,25 @@ export default function WorkDetailPage() {
 				<div className='absolute inset-0 bg-black/60' />
 				<div className='absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-background' />
 
-				<button
-					onClick={() => router.push('/our-works')}
-					className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold'>
-					<svg
-						className='w-5 h-5'
-						fill='none'
-						stroke='currentColor'
-						viewBox='0 0 24 24'>
-						<path
-							strokeLinecap='round'
-							strokeLinejoin='round'
-							strokeWidth={2}
-							d='M10 19l-7-7m0 0l7-7m-7 7h18'
-						/>
-					</svg>
-					Back
-				</button>
+				<span className='text-always-white'>
+					<button
+						onClick={() => router.push('/our-works')}
+						className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold'>
+						<svg
+							className='w-5 h-5'
+							fill='none'
+							stroke='currentColor'
+							viewBox='0 0 24 24'>
+							<path
+								strokeLinecap='round'
+								strokeLinejoin='round'
+								strokeWidth={2}
+								d='M10 19l-7-7m0 0l7-7m-7 7h18'
+							/>
+						</svg>
+						Back
+					</button>
+				</span>
 
 				<div className='absolute inset-0 flex items-center justify-center'>
 					<motion.h1

@@ -35,10 +35,10 @@ export default function ConstructionHero() {
 				<div className='absolute inset-0 bg-linear-to-b from-black/90 via-black/70 to-black/95 z-10'></div>
 				<div className='bg-gray-900 w-full h-full absolute inset-0' />
 				<div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center'>
-					<div className='h-32' />
+					<div className='h-32'></div>
 				</div>
 			</section>
-		)``
+		)
 	}
 
 	return (

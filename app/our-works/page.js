@@ -167,16 +167,14 @@ function WorkCard({work, index, onClick}) {
 				/>
 				<div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent' />
 			</div>
-
 			<div className='p-6'>
 				<h3 className='mb-2 text-2xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-300'>
 					{work.title}
 				</h3>
-				<p className='text-muted-foreground leading-relaxed'>
+				<p className='text-muted-foreground leading-relaxed line-clamp-3'>
 					{work.description}
 				</p>
-			</div>
-
+			</div>{' '}
 			<div className='pointer-events-none absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 			<div className='pointer-events-none absolute bottom-0 right-0 h-20 w-20 border-b-4 border-r-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 		</motion.div>
