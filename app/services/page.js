@@ -117,12 +117,7 @@ function ServiceCard({service, index}) {
 					))}
 				</ul>
 
-				<motion.button
-					className='w-full border-2 border-accent py-3 px-6 font-bold uppercase tracking-wider text-sm text-accent transition-all duration-300 hover:bg-accent hover:text-accent-foreground'
-					whileHover={{scale: 1.02}}
-					whileTap={{scale: 0.98}}>
-					Learn More
-				</motion.button>
+
 			</div>
 
 			<div className='absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />

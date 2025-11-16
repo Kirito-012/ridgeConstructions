@@ -47,7 +47,7 @@ export default function Navbar() {
 			className={`fixed top-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-b border-border z-50 transition-all duration-700 ${
 				isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
 			}`}>
-			<div className='max-w-7xl mx-auto px-6 lg:px-8'>
+			<div className='max-w-7xl font-bold mx-auto px-6 lg:px-8'>
 				<div className='flex justify-between items-center h-16'>
 					<a
 						href='/'
@@ -112,7 +112,7 @@ export default function Navbar() {
 
 						<a
 							href='/contact'
-							className='px-5 py-2 text-sm bg-accent hover:bg-accent/10 hover:text-accent-foreground/10 text-accent-foreground  ease-in-out transition-all duration-300'>
+							className='px-5 py-2 text-sm bg-accent hover:bg-accent/80 hover:scale-105 hover:text-accent-foreground/70 text-always-white  ease-in-out transition-all duration-300'>
 							Get Started
 						</a>
 					</div>
