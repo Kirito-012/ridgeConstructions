@@ -48,7 +48,7 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 		<motion.div
 			initial={{opacity: 0}}
 			animate={{opacity: 1}}
-			exit={{opacity: 0}}
+			exixt={{opacity: 0}}
 			className='fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center'
 			onClick={onClose}>
 			<button
@@ -312,28 +312,8 @@ export default function WorkDetailPage() {
 						backgroundImage: `url(${work.image})`,
 					}}
 				/>
-				<div className='absolute inset-0 bg-black/60' />
-				<div className='absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-background' />
-
-				<span className='text-always-white cursor-pointer'>
-					<button
-						onClick={() => router.push('/our-works')}
-						className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold'>
-						<svg
-							className='w-5 h-5'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								strokeWidth={2}
-								d='M10 19l-7-7m0 0l7-7m-7 7h18'
-							/>
-						</svg>
-						Back
-					</button>
-				</span>
+				<div className='absolute inset-0 bg-black/20' />
+				{/* <div className='absolute inset-0 bg-linear-to-b from-black/5 to-background' /> */}
 
 				<div className='absolute inset-0 flex items-center justify-center'>
 					<motion.h1
@@ -352,7 +332,7 @@ export default function WorkDetailPage() {
 					animate={{opacity: 1, y: 0}}
 					transition={{duration: 0.6, delay: 0.2}}
 					className='mb-16 text-center max-w-3xl mx-auto'>
-					<p className='text-xl text-muted-foreground leading-relaxed'>
+					<p className='text-sm lg:text-lg text-muted-foreground leading-relaxed'>
 						{work.description}
 					</p>
 				</motion.div>
