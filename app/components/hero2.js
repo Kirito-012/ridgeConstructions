@@ -158,46 +158,7 @@ export default function ConstructionHero() {
 					</motion.button>
 				</motion.div>
 
-				{/* Trust Stats */}
-				<motion.div
-					variants={container}
-					initial='hidden'
-					animate='show'
-					className='mt-10 sm:mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-white px-2'>
-					{[
-						{value: '300+', label: 'Projects Completed'},
-						{value: '10', label: 'Safety Awards'},
-						{value: '99%', label: 'Client Satisfaction'},
-						{value: '97%', label: 'On-Time Delivery'},
-					].map((stat, index) => (
-						<motion.div
-							key={stat.label}
-							variants={{
-								hidden: {opacity: 0, y: 20},
-								show: {
-									opacity: 1,
-									y: 0,
-									transition: {delay: index * 0.1 + 0.5},
-								},
-							}}
-							className='text-center'>
-							<motion.p
-								initial={{scale: 0.8}}
-								animate={{scale: 1}}
-								transition={{
-									delay: index * 0.1 + 0.7,
-									type: 'spring',
-									stiffness: 200,
-								}}
-								className='text-2xl sm:text-3xl md:text-4xl font-bold text-[#e55a24]'>
-								{stat.value}
-							</motion.p>
-							<p className='mt-1 sm:mt-2 text-xs sm:text-sm uppercase tracking-wider text-gray-400'>
-								{stat.label}
-							</p>
-						</motion.div>
-					))}
-				</motion.div>
+	
 			</motion.div>
 
 			{/* Scroll Indicator */}

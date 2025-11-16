@@ -33,7 +33,7 @@ function ServiceCard({service, index}) {
 						filter: 'brightness(0.7)',
 					}}
 				/>
-				<div className='absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent dark:from-black dark:via-black/50 dark:to-transparent' />
+				<div className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent dark:from-black dark:via-black/50 dark:to-transparent' />
 
 				{/* Icon Overlay */}
 				<div className='absolute top-6 right-6'>
@@ -71,7 +71,7 @@ function ServiceCard({service, index}) {
 							animate={isInView ? {opacity: 1, x: 0} : {opacity: 0, x: -20}}
 							transition={{duration: 0.4, delay: index * 0.1 + i * 0.1}}
 							className='flex items-start text-sm text-muted-foreground'>
-							<span className='mt-2 mr-3 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent' />
+							<span className='mt-2 mr-3 h-1.5 w-1.5 shrink-0 rounded-full bg-accent' />
 							{feature}
 						</motion.li>
 					))}
@@ -260,7 +260,7 @@ export default function ServicesPage() {
 			</section>
 
 			{/* Stats Section */}
-			<section className='py-12 sm:py-16 px-4 bg-gradient-to-b from-background to-card'>
+			<section className='py-12 sm:py-16 px-4 bg-linear-to-b from-background to-card'>
 				<div className='mx-auto max-w-7xl'>
 					<div className='grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4'>
 						{stats.map((stat, i) => (
@@ -305,7 +305,7 @@ export default function ServicesPage() {
 			</section>
 
 			{/* CTA Section */}
-			<section className='relative py-16 sm:py-24 px-4 overflow-hidden bg-gradient-to-b from-card to-background'>
+			<section className='relative py-16 sm:py-24 px-4 overflow-hidden bg-linear-to-b from-card to-background'>
 				<div className='absolute inset-0 opacity-5'>
 					<div className='absolute top-0 left-1/4 h-96 w-96 rounded-full bg-accent blur-3xl' />
 					<div className='absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-accent blur-3xl' />
