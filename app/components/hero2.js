@@ -31,18 +31,18 @@ export default function ConstructionHero() {
 
 	if (!mounted) {
 		return (
-			<section className='relative min-h-[100dvh] flex items-center justify-center bg-black overflow-hidden'>
+			<section className='relative min-h-dvh flex items-center justify-center bg-black overflow-hidden'>
 				<div className='absolute inset-0 bg-linear-to-b from-black/90 via-black/70 to-black/95 z-10'></div>
 				<div className='bg-gray-900 w-full h-full absolute inset-0' />
 				<div className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center'>
 					<div className='h-32' />
 				</div>
 			</section>
-		)
+		)``
 	}
 
 	return (
-		<section className='relative min-h-[100dvh] flex items-center justify-center bg-black overflow-hidden py-20 sm:py-0'>
+		<section className='relative min-h-dvh flex items-center justify-center bg-black overflow-hidden py-20 sm:py-0'>
 			{/* Gradient Overlay - Always Dark */}
 			<motion.div
 				initial={{opacity: 0}}

@@ -735,7 +735,7 @@ export default function AdminDashboardPage() {
 	}
 
 	return (
-		<div className='relative min-h-screen bg-gradient-to-br from-background via-secondary/30 to-background px-3 py-8 text-foreground sm:px-6'>
+		<div className='relative min-h-screen bg-linear-to-br from-background via-secondary/30 to-background px-3 py-8 text-foreground sm:px-6'>
 			<div className='mx-auto flex w-full max-w-5xl flex-col gap-6 lg:flex-row'>
 				<ToastStack
 					toasts={toasts}
