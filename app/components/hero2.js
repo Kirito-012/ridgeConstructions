@@ -2,6 +2,7 @@
 
 import {motion} from 'framer-motion'
 import Image from 'next/image'
+import Link from 'next/link'
 import {useEffect, useState} from 'react'
 
 // Stagger container
@@ -15,7 +16,6 @@ const container = {
 		},
 	},
 }
-
 // Individual item
 const item = {
 	hidden: {opacity: 0, y: 30},
@@ -51,7 +51,6 @@ export default function ConstructionHero() {
 				className='absolute inset-0 z-10 bg-linear-to-b from-black/90 via-black/70 to-black/95'
 			/>
 
-			{/* Background Image */}
 			<motion.div
 				initial={{scale: 1.1}}
 				animate={{scale: 1}}
@@ -66,13 +65,11 @@ export default function ConstructionHero() {
 				/>
 			</motion.div>
 
-			{/* Main Content */}
 			<motion.div
 				variants={container}
 				initial='hidden'
 				animate='show'
 				className='relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 text-center w-full'>
-				{/* Headline */}
 				<motion.h1
 					variants={item}
 					className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight hero_heading_font'>
@@ -87,47 +84,43 @@ export default function ConstructionHero() {
 					</motion.span>
 				</motion.h1>
 
-				{/* Sub-headline */}
 				<motion.p
 					variants={item}
 					className='mt-4 sm:mt-6 text-base sm:text-lg md:text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed px-2'>
 					Precision engineering, safety-first execution, and on-time completion
 					for high-rise towers and sustainable residential complexes.
 				</motion.p>
-
-				{/* CTA Buttons */}
 				<motion.div
 					variants={item}
 					className='mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center px-4'>
-					{/* Primary Button */}
-					<motion.button
-						type='button'
-						onClick={() => {
-							const el = document.getElementById('quote')
-							if (el) el.scrollIntoView({behavior: 'smooth'})
-						}}
-						whileHover={{
-							scale: 1.05,
-							boxShadow: '0 20px 30px rgba(229, 90, 36, 0.3)',
-						}}
-						whileTap={{scale: 0.98}}
-						className='cursor-pointer inline-flex items-center justify-center gap-2 sm:gap-3 bg-[#e55a24] hover:bg-[#d14d1f] btn-always-white font-bold px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 text-base sm:text-lg transition-all duration-300 shadow-2xl w-full sm:w-auto'>
-						<svg
-							className='w-5 h-5 sm:w-6 sm:h-6'
-							fill='none'
-							stroke='currentColor'
-							viewBox='0 0 24 24'>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								strokeWidth={2}
-								d='M9 5l7 7-7 7'
-							/>
-						</svg>
-						Get Free Quote
-					</motion.button>
-
-					{/* Secondary Phone Button */}
+					<Link href='/contacts'>
+						<motion.button
+							type='button'
+							onClick={() => {
+								const el = document.getElementById('quote')
+								if (el) el.scrollIntoView({behavior: 'smooth'})
+							}}
+							whileHover={{
+								scale: 1.05,
+								boxShadow: '0 20px 30px rgba(229, 90, 36, 0.3)',
+							}}
+							whileTap={{scale: 0.98}}
+							className='cursor-pointer inline-flex items-center justify-center gap-2 sm:gap-3 bg-[#e55a24] hover:bg-[#d14d1f] btn-always-white font-bold px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 text-base sm:text-lg transition-all duration-300 shadow-2xl w-full sm:w-auto'>
+							<svg
+								className='w-5 h-5 sm:w-6 sm:h-6'
+								fill='none'
+								stroke='currentColor'
+								viewBox='0 0 24 24'>
+								<path
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									strokeWidth={2}
+									d='M9 5l7 7-7 7'
+								/>
+							</svg>
+							Get Free Quote
+						</motion.button>
+					</Link>
 					<motion.button
 						type='button'
 						onClick={() => {
@@ -157,11 +150,8 @@ export default function ConstructionHero() {
 						<span className='xs:hidden'>Call Us</span>
 					</motion.button>
 				</motion.div>
-
-	
 			</motion.div>
 
-			{/* Scroll Indicator */}
 			<motion.div
 				initial={{opacity: 0, y: -20}}
 				animate={{opacity: 1, y: 0}}

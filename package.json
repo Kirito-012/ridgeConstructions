@@ -8,10 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^2.8.0",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.553.0",
-    "cloudinary": "^1.41.3",
-    "bcryptjs": "^2.4.3",
     "mongodb": "^6.10.0",
     "next": "16.0.1",
     "react": "19.2.0",

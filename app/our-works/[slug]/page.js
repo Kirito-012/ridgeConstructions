@@ -29,7 +29,7 @@ export default function WorkDetailPage() {
 
 				setWork(foundWork)
 
-				// Preload all gallery images for smooth viewing
+				// Preloading gallery images
 				const allImages = [foundWork.image, ...foundWork.gallery]
 				preloadImages(allImages)
 
@@ -75,7 +75,6 @@ export default function WorkDetailPage() {
 
 	return (
 		<div className='min-h-screen bg-background'>
-			{/* Hero Section with Image Background */}
 			<div className='relative h-96 overflow-hidden'>
 				<div
 					className='absolute inset-0 bg-cover bg-center'
@@ -86,7 +85,6 @@ export default function WorkDetailPage() {
 				<div className='absolute inset-0 bg-black/60' />
 				<div className='absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-background' />
 
-				{/* Back Button */}
 				<button
 					onClick={() => router.push('/our-works')}
 					className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold'>
@@ -105,7 +103,6 @@ export default function WorkDetailPage() {
 					Back
 				</button>
 
-				{/* Title */}
 				<div className='absolute inset-0 flex items-center justify-center'>
 					<motion.h1
 						initial={{opacity: 0, y: 30}}
@@ -117,9 +114,7 @@ export default function WorkDetailPage() {
 				</div>
 			</div>
 
-			{/* Content Section */}
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-				{/* Description */}
 				<motion.div
 					initial={{opacity: 0, y: 20}}
 					animate={{opacity: 1, y: 0}}
@@ -130,7 +125,6 @@ export default function WorkDetailPage() {
 					</p>
 				</motion.div>
 
-				{/* Image Gallery */}
 				{work.gallery && work.gallery.length > 0 && (
 					<motion.div
 						initial={{opacity: 0}}
@@ -140,9 +134,7 @@ export default function WorkDetailPage() {
 							Project <span className='text-accent'>Gallery</span>
 						</h2>
 
-						{/* Masonry-style Grid Layout */}
 						<div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
-							{/* Large featured image - takes 2 columns and 2 rows */}
 							{work.gallery[0] && (
 								<motion.div
 									initial={{opacity: 0, scale: 0.9}}
@@ -157,7 +149,6 @@ export default function WorkDetailPage() {
 								</motion.div>
 							)}
 
-							{/* Second image - tall */}
 							{work.gallery[1] && (
 								<motion.div
 									initial={{opacity: 0, scale: 0.9}}
@@ -172,7 +163,6 @@ export default function WorkDetailPage() {
 								</motion.div>
 							)}
 
-							{/* Third image */}
 							{work.gallery[2] && (
 								<motion.div
 									initial={{opacity: 0, scale: 0.9}}
@@ -187,7 +177,6 @@ export default function WorkDetailPage() {
 								</motion.div>
 							)}
 
-							{/* Fourth image */}
 							{work.gallery[3] && (
 								<motion.div
 									initial={{opacity: 0, scale: 0.9}}
@@ -202,7 +191,6 @@ export default function WorkDetailPage() {
 								</motion.div>
 							)}
 
-							{/* Fifth image - wide */}
 							{work.gallery[4] && (
 								<motion.div
 									initial={{opacity: 0, scale: 0.9}}
@@ -217,7 +205,6 @@ export default function WorkDetailPage() {
 								</motion.div>
 							)}
 
-							{/* Sixth image - wide */}
 							{work.gallery[5] && (
 								<motion.div
 									initial={{opacity: 0, scale: 0.9}}
@@ -232,7 +219,6 @@ export default function WorkDetailPage() {
 								</motion.div>
 							)}
 
-							{/* Additional images in a responsive grid */}
 							{work.gallery.length > 6 && (
 								<div className='md:col-span-4'>
 									<h3 className='text-2xl font-bold text-foreground mb-6 mt-8'>

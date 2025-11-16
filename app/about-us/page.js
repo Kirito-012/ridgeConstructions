@@ -2,16 +2,7 @@
 
 import {useState, useRef, useEffect} from 'react'
 import {motion, useInView} from 'framer-motion'
-import {
-	Building2,
-	Hammer,
-	Ruler,
-	Award,
-	Clock,
-	Shield,
-	Users,
-	Star,
-} from 'lucide-react'
+import {Building2, Award, Clock, Shield, Users, Star} from 'lucide-react'
 
 function StatCard({stat, index}) {
 	const cardRef = useRef(null)
@@ -55,7 +46,9 @@ function TestimonialCard({testimonial}) {
 				</div>
 				<div>
 					<h4 className='font-bold text-card-foreground'>{testimonial.name}</h4>
-					<p className='text-xs sm:text-sm text-muted-foreground'>{testimonial.role}</p>
+					<p className='text-xs sm:text-sm text-muted-foreground'>
+						{testimonial.role}
+					</p>
 				</div>
 			</div>
 		</div>
@@ -65,7 +58,7 @@ function TestimonialCard({testimonial}) {
 export default function AboutPage() {
 	const stats = [
 		{icon: Award, number: '300+', label: 'Projects Completed'},
-		{icon: Clock, number: '25+', label: 'Years Experience'},
+		{icon: Clock, number: '15+', label: 'Years Experience'},
 		{icon: Shield, number: '99%', label: 'Client Satisfaction'},
 		{icon: Users, number: '150+', label: 'Expert Team Members'},
 	]
@@ -120,7 +113,6 @@ export default function AboutPage() {
 
 	return (
 		<div className='min-h-screen bg-background'>
-			{/* Hero Section */}
 			<section className='relative flex h-[50vh] items-center justify-center overflow-hidden sm:h-[60vh] pt-20 sm:pt-22'>
 				<div
 					className='absolute inset-0 bg-cover bg-center'
@@ -152,11 +144,9 @@ export default function AboutPage() {
 						</p>
 					</motion.div>
 				</div>
-
 			</section>
 
-			{/* Stats Section */}
-			<section className='py-12 sm:py-16 md:py-20 px-4 bg-gradient-to-b from-background to-card'>
+			<section className='py-12 sm:py-16 md:py-20 px-4 bg-linear-to-b from-background to-card'>
 				<div className='mx-auto max-w-7xl'>
 					<div className='grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4'>
 						{stats.map((stat, i) => (
@@ -170,7 +160,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* Welcome Section */}
 			<section className='py-16 sm:py-24 px-4 bg-card'>
 				<div className='mx-auto max-w-7xl'>
 					<div className='grid md:grid-cols-2 gap-8 sm:gap-12 items-center'>
@@ -214,9 +203,8 @@ export default function AboutPage() {
 									alt='Modern office interior'
 									className='w-full h-full object-cover'
 								/>
-								<div className='absolute inset-0 bg-gradient-to-t from-black/50 to-transparent' />
+								<div className='absolute inset-0 bg-linear-to-t from-black/50 to-transparent' />
 
-								{/* Decorative Corners */}
 								<div className='absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent' />
 								<div className='absolute bottom-0 right-0 h-20 w-20 border-b-4 border-r-4 border-accent' />
 							</div>
@@ -225,7 +213,6 @@ export default function AboutPage() {
 				</div>
 			</section>
 
-			{/* Testimonials Section */}
 			<section className='py-16 sm:py-24 bg-background overflow-hidden'>
 				<div className='mx-auto max-w-7xl mb-12 sm:mb-16 px-4'>
 					<motion.div
@@ -244,7 +231,6 @@ export default function AboutPage() {
 					</motion.div>
 				</div>
 
-				{/* Infinite Scroll Container */}
 				<div className='relative'>
 					<div className='flex overflow-hidden'>
 						<div
@@ -261,14 +247,12 @@ export default function AboutPage() {
 						</div>
 					</div>
 
-					{/* Gradient Overlays */}
-					<div className='absolute inset-y-0 left-0 w-20 sm:w-40 bg-gradient-to-r from-background via-background to-transparent pointer-events-none z-10' />
-					<div className='absolute inset-y-0 right-0 w-20 sm:w-40 bg-gradient-to-l from-background via-background to-transparent pointer-events-none z-10' />
+					<div className='absolute inset-y-0 left-0 w-20 sm:w-40 bg-linear-to-r from-background via-background to-transparent pointer-events-none z-10' />
+					<div className='absolute inset-y-0 right-0 w-20 sm:w-40 bg-linear-to-l from-background via-background to-transparent pointer-events-none z-10' />
 				</div>
 			</section>
 
-			{/* CTA Section */}
-			<section className='relative py-20 sm:py-24 md:py-32 px-4 overflow-hidden bg-gradient-to-br from-card via-background to-card'>
+			<section className='relative py-20 sm:py-24 md:py-32 px-4 overflow-hidden bg-linear-to-br from-card via-background to-card'>
 				<div className='absolute inset-0 opacity-10'>
 					<div className='absolute top-0 left-1/4 h-96 w-96 rounded-full bg-accent blur-3xl animate-pulse' />
 					<div

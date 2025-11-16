@@ -1,7 +1,7 @@
 'use client'
 
 import {useState, useEffect} from 'react'
-import { usePathname } from 'next/navigation'
+import {usePathname} from 'next/navigation'
 
 export default function Navbar() {
 	const pathname = usePathname()
@@ -12,7 +12,6 @@ export default function Navbar() {
 	useEffect(() => {
 		setIsVisible(true)
 
-		// Check for saved theme preference or default to light
 		const savedTheme = localStorage.getItem('theme')
 		if (savedTheme === 'dark') {
 			setIsDark(true)
@@ -50,7 +49,6 @@ export default function Navbar() {
 			}`}>
 			<div className='max-w-7xl mx-auto px-6 lg:px-8'>
 				<div className='flex justify-between items-center h-16'>
-					{/* Logo */}
 					<a
 						href='/'
 						className='flex items-center'>
@@ -61,7 +59,6 @@ export default function Navbar() {
 						/>
 					</a>
 
-					{/* Desktop Menu */}
 					<div className='hidden md:flex items-center gap-8'>
 						{navLinks.map((link) => {
 							const isActive = pathname === link.href
@@ -70,22 +67,21 @@ export default function Navbar() {
 									key={link.name}
 									href={link.href}
 									className={`text-sm transition-colors ${
-										isActive ? 'active-nav' : 'text-[#e55a24]/80 hover:text-[#e55a24]'
+										isActive
+											? 'active-nav'
+											: 'text-[#e55a24]/80 hover:text-[#e55a24]'
 									}`}
-									aria-current={isActive ? 'page' : undefined}
-								>
+									aria-current={isActive ? 'page' : undefined}>
 									{link.name}
 								</a>
 							)
 						})}
 
-						{/* Theme Toggle Button */}
 						<button
 							onClick={toggleTheme}
 							className='p-2 rounded-lg cursor-pointer  ease-in hover:bg-muted transition-colors'
 							aria-label='Toggle theme'>
 							{isDark ? (
-								// Sun icon for light mode
 								<svg
 									className='w-5 h-5 text-foreground'
 									fill='none'
@@ -99,7 +95,6 @@ export default function Navbar() {
 									/>
 								</svg>
 							) : (
-								// Moon icon for dark mode
 								<svg
 									className='w-5 h-5 text-foreground'
 									fill='none'
@@ -117,14 +112,12 @@ export default function Navbar() {
 
 						<a
 							href='/contact'
-							className='px-5 py-2 text-sm bg-accent hover:bg-accent/10  hover:text-accent-foreground/10 text-accent-foreground  ease-in-out transition-all duration-300'>
+							className='px-5 py-2 text-sm bg-accent hover:bg-accent/10 hover:text-accent-foreground/10 text-accent-foreground  ease-in-out transition-all duration-300'>
 							Get Started
 						</a>
 					</div>
 
-					{/* Mobile Menu Button */}
 					<div className='md:hidden flex items-center gap-3'>
-						{/* Theme Toggle Button (Mobile) */}
 						<button
 							onClick={toggleTheme}
 							className='p-2 rounded-lg hover:bg-muted transition-colors'
@@ -187,7 +180,6 @@ export default function Navbar() {
 					</div>
 				</div>
 
-				{/* Mobile Menu */}
 				{isOpen && (
 					<div className='md:hidden border-t border-border py-4'>
 						{navLinks.map((link) => (

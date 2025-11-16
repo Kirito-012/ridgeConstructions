@@ -3,13 +3,11 @@
 import {motion, useInView} from 'framer-motion'
 import {useRef, useState, useEffect} from 'react'
 import {useRouter} from 'next/navigation'
-import Image from 'next/image'
 import {fetchWorks, preloadImages} from '@/lib/works'
 
 function ProjectDetailPage({work, onBack}) {
 	return (
 		<div className='min-h-screen bg-background'>
-			{/* Hero Section with Image Background */}
 			<div className='relative h-96 overflow-hidden'>
 				<div
 					className='absolute inset-0 bg-cover bg-center'
@@ -20,7 +18,6 @@ function ProjectDetailPage({work, onBack}) {
 				<div className='absolute inset-0 bg-black/60' />
 				<div className='absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-background' />
 
-				{/* Back Button */}
 				<button
 					onClick={onBack}
 					className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold'>
@@ -39,7 +36,6 @@ function ProjectDetailPage({work, onBack}) {
 					Back
 				</button>
 
-				{/* Title */}
 				<div className='absolute inset-0 flex items-center justify-center'>
 					<motion.h1
 						initial={{opacity: 0, y: 30}}
@@ -51,9 +47,7 @@ function ProjectDetailPage({work, onBack}) {
 				</div>
 			</div>
 
-			{/* Content Section */}
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-				{/* Description */}
 				<motion.div
 					initial={{opacity: 0, y: 20}}
 					animate={{opacity: 1, y: 0}}
@@ -64,7 +58,6 @@ function ProjectDetailPage({work, onBack}) {
 					</p>
 				</motion.div>
 
-				{/* Image Gallery */}
 				<motion.div
 					initial={{opacity: 0}}
 					animate={{opacity: 1}}
@@ -73,9 +66,7 @@ function ProjectDetailPage({work, onBack}) {
 						Project <span className='text-accent'>Gallery</span>
 					</h2>
 
-					{/* Masonry-style Grid Layout */}
 					<div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
-						{/* Large featured image - takes 2 columns and 2 rows */}
 						<motion.div
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -88,7 +79,6 @@ function ProjectDetailPage({work, onBack}) {
 							<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500' />
 						</motion.div>
 
-						{/* Second image - tall */}
 						<motion.div
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -101,7 +91,6 @@ function ProjectDetailPage({work, onBack}) {
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
 						</motion.div>
 
-						{/* Third image */}
 						<motion.div
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -114,7 +103,6 @@ function ProjectDetailPage({work, onBack}) {
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
 						</motion.div>
 
-						{/* Fourth image */}
 						<motion.div
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -127,7 +115,6 @@ function ProjectDetailPage({work, onBack}) {
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
 						</motion.div>
 
-						{/* Fifth image - wide */}
 						<motion.div
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -140,7 +127,6 @@ function ProjectDetailPage({work, onBack}) {
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
 						</motion.div>
 
-						{/* Sixth image - wide */}
 						<motion.div
 							initial={{opacity: 0, scale: 0.9}}
 							animate={{opacity: 1, scale: 1}}
@@ -171,7 +157,6 @@ function WorkCard({work, index, onClick}) {
 			transition={{duration: 0.6, delay: index * 0.15}}
 			onClick={onClick}
 			className='group relative overflow-hidden bg-card border border-border rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer'>
-			{/* Image */}
 			<div className='relative h-64 overflow-hidden'>
 				<div
 					className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
@@ -183,7 +168,6 @@ function WorkCard({work, index, onClick}) {
 				<div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent' />
 			</div>
 
-			{/* Content */}
 			<div className='p-6'>
 				<h3 className='mb-2 text-2xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-300'>
 					{work.title}
@@ -193,7 +177,6 @@ function WorkCard({work, index, onClick}) {
 				</p>
 			</div>
 
-			{/* Decorative corners */}
 			<div className='pointer-events-none absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 			<div className='pointer-events-none absolute bottom-0 right-0 h-20 w-20 border-b-4 border-r-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
 		</motion.div>
@@ -261,7 +244,6 @@ export default function OurWorkPage() {
 
 	return (
 		<div className='min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8'>
-			{/* Page Heading */}
 			<motion.div
 				initial={{opacity: 0, y: 20}}
 				whileInView={{opacity: 1, y: 0}}
@@ -277,7 +259,6 @@ export default function OurWorkPage() {
 				</p>
 			</motion.div>
 
-			{/* Work Cards Grid */}
 			<div className='mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-0'>
 				{works.length > 0 ? (
 					<div className='grid gap-8 md:grid-cols-2'>
