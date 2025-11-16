@@ -95,13 +95,7 @@ function ServiceCard({ service, index }) {
           ))}
         </ul>
 
-        {/* CTA Button */}
-        <motion.button
-          className='w-full border-2 border-accent py-3 px-6 font-bold uppercase tracking-wider text-sm text-accent transition-all duration-300 hover:bg-accent hover:text-accent-foreground'
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}>
-          Learn More
-        </motion.button>
+   
       </div>
 
       {/* Decorative Corner */}
