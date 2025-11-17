@@ -56,7 +56,7 @@ function ServiceCard({ service, index }) {
         {/* Icon Overlay */}
         <div className='absolute top-6 right-6'>
           <motion.div
-            className='flex h-16 w-16 items-center justify-center bg-accent'
+            className='flex h-16 w-16 items-center justify-center bg-accent text-always-white'
             whileHover={{ scale: 1.1, rotate: 5 }}
             transition={{ duration: 0.3 }}>
             <IconComponent />

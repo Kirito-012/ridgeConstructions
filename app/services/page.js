@@ -80,12 +80,12 @@ function ServiceCard({service, index}) {
 				<div className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent dark:from-black dark:via-black/50 dark:to-transparent' />
 
 				<div className='absolute top-6 right-6'>
-					<motion.div
-						className='flex h-16 w-16 items-center justify-center bg-accent'
-						whileHover={{scale: 1.1, rotate: 5}}
-						transition={{duration: 0.3}}>
-						<service.icon className='h-8 w-8 text-accent-foreground' />
-					</motion.div>
+						<motion.div
+							className='flex h-16 w-16 items-center justify-center bg-accent text-always-white'
+							whileHover={{scale: 1.1, rotate: 5}}
+							transition={{duration: 0.3}}>
+							<service.icon className='h-8 w-8 text-always-white' />
+						</motion.div>
 				</div>
 
 				<div className='absolute bottom-6 left-6'>
