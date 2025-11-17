@@ -47,7 +47,7 @@ export default function Navbar() {
 			className={`fixed top-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-b border-border z-50 transition-all duration-700 ${
 				isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
 			}`}>
-			<div className='max-w-7xl  mx-auto px-6 lg:px-8'>
+			<div className='max-w-7xl font-jost  mx-auto px-6 lg:px-8'>
 				<div className='flex justify-between items-center h-16'>
 					<a
 						href='/'
@@ -204,6 +204,9 @@ export default function Navbar() {
 					</div>
 				)}
 			</div>
+
+
 		</nav>
 	)
 }
+

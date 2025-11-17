@@ -402,6 +402,11 @@ section.relative.min-h-screen p {
 	font-family: var(--font-geist-sans) !important;
 }
 
+/* Utility to apply Jost font */
+.font-jost {
+	font-family: var(--font-jost) !important;
+}
+
 /* Ensure active nav link uses accent color */
 nav a[aria-current="page"] {
 	color: var(--accent) !important;
