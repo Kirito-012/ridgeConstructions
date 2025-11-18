@@ -8,7 +8,7 @@ const TABS = [
 	{id: 'manage', label: 'Manage Work'},
 ]
 
-const MAX_FILE_SIZE_MB = 10
+const MAX_FILE_SIZE_MB = 20
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 
 function classNames(...classes) {
@@ -260,10 +260,10 @@ function AddWorkTab({onCreated, pushToast}) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault()
-		if (!name.trim() || !description.trim()) {
+		if (!name.trim()) {
 			pushToast({
 				variant: 'error',
-				message: 'Name and description are required',
+				message: 'Name is required',
 			})
 			return
 		}
@@ -345,7 +345,7 @@ function AddWorkTab({onCreated, pushToast}) {
 
 			<div>
 				<label className='mb-2 block text-xs font-semibold uppercase tracking-wide'>
-					Description
+					Description (Optional)
 				</label>
 				<textarea
 					value={description}
@@ -781,9 +781,9 @@ export default function AdminDashboardPage() {
 				)}
 			</div>
 			{showModal && editingWork && (
-				<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4'>
-					<div className='w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl'>
-						<div className='mb-4 flex items-center justify-between'>
+				<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 py-8'>
+					<div className='w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl border border-border bg-card p-6 shadow-2xl'>
+						<div className='mb-4 flex items-center justify-between sticky top-0 bg-card z-10 pb-4'>
 							<div>
 								<p className='text-xs uppercase tracking-[0.3em] text-muted-foreground'>
 									Edit Work
@@ -793,7 +793,7 @@ export default function AdminDashboardPage() {
 							<button
 								type='button'
 								onClick={closeModal}
-								className='rounded-full px-3 py-1 text-sm text-muted-foreground hover:text-foreground'>
+								className='rounded-full px-4 py-2 text-2xl text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors'>
 								✕
 							</button>
 						</div>
@@ -815,7 +815,7 @@ export default function AdminDashboardPage() {
 							</div>
 							<div>
 								<label className='mb-1 block text-xs font-semibold uppercase tracking-wide'>
-									Description
+									Description (Optional)
 								</label>
 								<textarea
 									value={editingWork.description}
@@ -827,7 +827,6 @@ export default function AdminDashboardPage() {
 									}
 									rows={3}
 									className='w-full rounded-xl border border-border bg-background px-3 py-2'
-									required
 								/>
 							</div>
 							<div>
@@ -888,7 +887,7 @@ export default function AdminDashboardPage() {
 										/>
 									</label>
 								</div>
-								<div className='grid grid-cols-2 gap-3'>
+								<div className='grid grid-cols-3 gap-3'>
 									{(editingWork.galleryImageUrls || []).map((url, index) => (
 										<div
 											key={url + index}
@@ -939,19 +938,21 @@ export default function AdminDashboardPage() {
 									))}
 								</div>
 							</div>
-							<div className='flex justify-end gap-3'>
-								<button
-									type='button'
-									onClick={closeModal}
-									className='rounded-xl border border-border px-4 py-2 text-sm font-semibold'>
-									Cancel
-								</button>
-								<button
-									type='submit'
-									disabled={modalSubmitting}
-									className='rounded-xl bg-accent px-5 py-2 text-sm font-semibold text-white shadow-lg disabled:opacity-70'>
-									{modalSubmitting ? 'Saving...' : 'Save Changes'}
-								</button>
+							<div className='sticky bottom-0 bg-card pt-4 border-t border-border mt-6'>
+								<div className='flex justify-end gap-3'>
+									<button
+										type='button'
+										onClick={closeModal}
+										className='rounded-xl border border-border px-4 py-2 text-sm font-semibold'>
+										Cancel
+									</button>
+									<button
+										type='submit'
+										disabled={modalSubmitting}
+										className='rounded-xl bg-accent px-5 py-2 text-sm font-semibold text-white shadow-lg disabled:opacity-70'>
+										{modalSubmitting ? 'Saving...' : 'Save Changes'}
+									</button>
+								</div>
 							</div>
 						</form>
 					</div>

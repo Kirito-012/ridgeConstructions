@@ -18,7 +18,7 @@ const ALLOWED_FORMATS = [
 	'heif',
 ]
 
-const MAX_FILE_SIZE = 50 * 1024 * 1024 // 50MB
+const MAX_FILE_SIZE = 20 * 1024 * 1024
 
 async function ensureAuthenticated() {
 	const cookieStore = await cookies()
@@ -27,7 +27,6 @@ async function ensureAuthenticated() {
 }
 
 function validateImageFile(file) {
-	// Check file size
 	if (file.size > MAX_FILE_SIZE) {
 		return {
 			valid: false,
@@ -35,7 +34,6 @@ function validateImageFile(file) {
 		}
 	}
 
-	// Check MIME type
 	const mimeType = file.type.toLowerCase()
 	const isValidMime = mimeType.startsWith('image/')
 
@@ -46,7 +44,6 @@ function validateImageFile(file) {
 		}
 	}
 
-	// Extract format from MIME type
 	const format = mimeType.split('/')[1]
 	const isAllowedFormat = ALLOWED_FORMATS.includes(format)
 
@@ -77,13 +74,11 @@ export async function POST(request) {
 			return NextResponse.json({error: 'File is required'}, {status: 400})
 		}
 
-		// Validate image file
 		const validation = validateImageFile(file)
 		if (!validation.valid) {
 			return NextResponse.json({error: validation.error}, {status: 400})
 		}
 
-		// Check if Cloudinary is configured
 		if (
 			!process.env.CLOUDINARY_CLOUD_NAME ||
 			!process.env.CLOUDINARY_API_KEY ||
@@ -137,7 +132,6 @@ export async function POST(request) {
 	} catch (error) {
 		console.error('Image upload failed:', error)
 
-		// Provide more specific error messages
 		let errorMessage = 'Image upload failed'
 		if (error.message) {
 			errorMessage = error.message
