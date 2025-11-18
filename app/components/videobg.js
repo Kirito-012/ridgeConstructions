@@ -8,7 +8,7 @@ export default function HeroVideoSection() {
 				muted
 				playsInline>
 				<source
-					src='/bgvideo.mp4'
+					src='/bgvideo1.mp4'
 					type='video/mp4'
 				/>
 				Your browser does not support the video tag.
