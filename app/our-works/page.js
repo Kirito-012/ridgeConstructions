@@ -75,35 +75,35 @@ function ProjectDetailPage({work, onBack}) {
 								style={{backgroundImage: `url(${work.gallery[0]})`}}
 							/>
 							<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300' />
-						</div>{' '}
+						</div>
 						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-1 h-[250px] cursor-pointer will-change-transform'>
 							<div
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[1]})`}}
 							/>
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>{' '}
+						</div>
 						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-1 h-[250px] cursor-pointer will-change-transform'>
 							<div
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[2]})`}}
 							/>
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>{' '}
+						</div>
 						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-1 h-[250px] cursor-pointer will-change-transform'>
 							<div
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[3]})`}}
 							/>
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>{' '}
+						</div>
 						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 h-[250px] cursor-pointer will-change-transform'>
 							<div
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[4]})`}}
 							/>
 							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>{' '}
+						</div>
 						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 h-[250px] cursor-pointer will-change-transform'>
 							<div
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
@@ -257,6 +257,20 @@ export default function OurWorkPage() {
 			</motion.div>
 
 			<div className='mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-0'>
+				<div className='flex flex-wrap gap-4 mb-8'>
+					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
+						All
+					</button>
+					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
+						Restaurants
+					</button>
+					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
+						Healthcare
+					</button>
+					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
+						Commercial Offices
+					</button>
+				</div>
 				{works.length > 0 ? (
 					<div className='grid gap-8 md:grid-cols-2'>
 						{works.map((work, i) => (
