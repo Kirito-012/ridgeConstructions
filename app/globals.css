@@ -467,3 +467,62 @@ nav a[aria-current="page"] {
 .scrollbar-hide::-webkit-scrollbar {
 	display: none;
 }
+
+/* Performance optimizations */
+* {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* GPU acceleration for transforming elements */
+.will-change-transform {
+	will-change: transform;
+}
+
+.will-change-opacity {
+	will-change: opacity;
+}
+
+/* Optimize image rendering */
+img {
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: crisp-edges;
+}
+
+/* Smooth scroll with reduced motion support */
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* Hardware acceleration for common animated elements */
+.group {
+	transform: translateZ(0);
+	backface-visibility: hidden;
+	perspective: 1000px;
+}
+
+/* Optimize backdrop blur */
+.backdrop-blur-sm,
+.backdrop-blur-md {
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+	transform: translateZ(0);
+}
+
+/* Optimize shadows for better performance */
+.shadow-xl,
+.shadow-2xl {
+	will-change: box-shadow;
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import {motion, useInView} from 'framer-motion'
-import {useRef, useState, useEffect} from 'react'
+import {useRef, useState, useEffect, useCallback} from 'react'
 import {useRouter} from 'next/navigation'
 import {fetchWorks, preloadImages} from '@/lib/works'
 
@@ -18,9 +18,11 @@ function ProjectDetailPage({work, onBack}) {
 				<div className='absolute inset-0 bg-black/60' />
 				<div className='absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-background' />
 
-				<button
+				<motion.button
 					onClick={onBack}
-					className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 font-semibold'>
+					whileHover={{scale: 1.05}}
+					whileTap={{scale: 0.95}}
+					className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl font-semibold will-change-transform'>
 					<svg
 						className='w-5 h-5'
 						fill='none'
@@ -34,13 +36,13 @@ function ProjectDetailPage({work, onBack}) {
 						/>
 					</svg>
 					Back
-				</button>
+				</motion.button>
 
 				<div className='absolute inset-0 flex items-center justify-center'>
 					<motion.h1
-						initial={{opacity: 0, y: 30}}
+						initial={{opacity: 0, y: 20}}
 						animate={{opacity: 1, y: 0}}
-						transition={{duration: 0.8}}
+						transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}
 						className='text-5xl md:text-7xl font-bold text-always-white text-center px-4'>
 						{work.title}
 					</motion.h1>
@@ -49,9 +51,9 @@ function ProjectDetailPage({work, onBack}) {
 
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
 				<motion.div
-					initial={{opacity: 0, y: 20}}
+					initial={{opacity: 0, y: 15}}
 					animate={{opacity: 1, y: 0}}
-					transition={{duration: 0.6, delay: 0.2}}
+					transition={{duration: 0.4, delay: 0.1, ease: [0.4, 0, 0.2, 1]}}
 					className='mb-16 text-center max-w-3xl mx-auto'>
 					<p className='text-xl text-muted-foreground leading-relaxed'>
 						{work.description}
@@ -61,83 +63,54 @@ function ProjectDetailPage({work, onBack}) {
 				<motion.div
 					initial={{opacity: 0}}
 					animate={{opacity: 1}}
-					transition={{duration: 0.6, delay: 0.4}}>
+					transition={{duration: 0.3, delay: 0.2, ease: 'easeOut'}}>
 					<h2 className='text-3xl font-bold text-foreground mb-12 text-center'>
 						Project <span className='text-accent'>Gallery</span>
 					</h2>
 
 					<div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
-						<motion.div
-							initial={{opacity: 0, scale: 0.9}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: 0.5}}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer'>
+						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer will-change-transform'>
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[0]})`}}
 							/>
-							<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500' />
-						</motion.div>
-
-						<motion.div
-							initial={{opacity: 0, scale: 0.9}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: 0.6}}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 md:row-span-1 h-[250px] cursor-pointer'>
+							<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300' />
+						</div>{' '}
+						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-1 h-[250px] cursor-pointer will-change-transform'>
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[1]})`}}
 							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
-						</motion.div>
-
-						<motion.div
-							initial={{opacity: 0, scale: 0.9}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: 0.7}}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-1 h-[250px] cursor-pointer'>
+							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+						</div>{' '}
+						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-1 h-[250px] cursor-pointer will-change-transform'>
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[2]})`}}
 							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
-						</motion.div>
-
-						<motion.div
-							initial={{opacity: 0, scale: 0.9}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: 0.8}}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-1 h-[250px] cursor-pointer'>
+							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+						</div>{' '}
+						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-1 h-[250px] cursor-pointer will-change-transform'>
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[3]})`}}
 							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
-						</motion.div>
-
-						<motion.div
-							initial={{opacity: 0, scale: 0.9}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: 0.9}}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 h-[250px] cursor-pointer'>
+							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+						</div>{' '}
+						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 h-[250px] cursor-pointer will-change-transform'>
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[4]})`}}
 							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
-						</motion.div>
-
-						<motion.div
-							initial={{opacity: 0, scale: 0.9}}
-							animate={{opacity: 1, scale: 1}}
-							transition={{duration: 0.5, delay: 1.0}}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 h-[250px] cursor-pointer'>
+							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+						</div>{' '}
+						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 h-[250px] cursor-pointer will-change-transform'>
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 								style={{backgroundImage: `url(${work.gallery[5]})`}}
 							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
-						</motion.div>
+							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+						</div>
 					</div>
 				</motion.div>
 			</div>
@@ -152,14 +125,14 @@ function WorkCard({work, index, onClick}) {
 	return (
 		<motion.div
 			ref={ref}
-			initial={{opacity: 0, y: 60}}
-			animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 60}}
-			transition={{duration: 0.6, delay: index * 0.15}}
+			initial={{opacity: 0, y: 30}}
+			animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 30}}
+			transition={{duration: 0.4, delay: index * 0.05, ease: [0.4, 0, 0.2, 1]}}
 			onClick={onClick}
-			className='group relative overflow-hidden bg-card border border-border rounded-lg shadow-sm hover:shadow-xl transition-all duration-500 cursor-pointer'>
+			className='group relative overflow-hidden bg-card border border-border rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer will-change-transform'>
 			<div className='relative h-64 overflow-hidden'>
 				<div
-					className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+					className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 					style={{
 						backgroundImage: `url(${work.image})`,
 						filter: 'brightness(0.75)',
@@ -168,15 +141,15 @@ function WorkCard({work, index, onClick}) {
 				<div className='absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent' />
 			</div>
 			<div className='p-6'>
-				<h3 className='mb-2 text-2xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-300'>
+				<h3 className='mb-2 text-2xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-200'>
 					{work.title}
 				</h3>
 				<p className='text-muted-foreground leading-relaxed line-clamp-3'>
 					{work.description}
 				</p>
-			</div>{' '}
-			<div className='pointer-events-none absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
-			<div className='pointer-events-none absolute bottom-0 right-0 h-20 w-20 border-b-4 border-r-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
+			</div>
+			<div className='pointer-events-none absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
+			<div className='pointer-events-none absolute bottom-0 right-0 h-20 w-20 border-b-4 border-r-4 border-accent opacity-0 transition-opacity duration-300 group-hover:opacity-100' />
 		</motion.div>
 	)
 }
@@ -195,7 +168,6 @@ export default function OurWorkPage() {
 				const loadedWorks = await fetchWorks()
 				setWorks(loadedWorks)
 
-				// Preload title images for better performance
 				const titleImages = loadedWorks.map((w) => w.image).filter(Boolean)
 				await preloadImages(titleImages)
 
@@ -211,14 +183,16 @@ export default function OurWorkPage() {
 		loadWorks()
 	}, [])
 
-	const handleCardClick = async (work) => {
-		setNavigating(true)
+	const handleCardClick = useCallback(
+		(work) => {
+			setNavigating(true)
 
-		// Small delay for visual feedback
-		setTimeout(() => {
-			router.push(`/our-works/${work.slug}`)
-		}, 150)
-	}
+			setTimeout(() => {
+				router.push(`/our-works/${work.slug}`)
+			}, 100)
+		},
+		[router]
+	)
 
 	if (loading) {
 		return (
@@ -248,7 +222,6 @@ export default function OurWorkPage() {
 
 	return (
 		<div className='min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8'>
-			{/* Navigation loading overlay */}
 			{navigating && (
 				<motion.div
 					initial={{opacity: 0}}
@@ -269,10 +242,10 @@ export default function OurWorkPage() {
 			)}
 
 			<motion.div
-				initial={{opacity: 0, y: 20}}
+				initial={{opacity: 0, y: 15}}
 				whileInView={{opacity: 1, y: 0}}
 				viewport={{once: true}}
-				transition={{duration: 0.6}}
+				transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}
 				className='mb-16 text-center'>
 				<h1 className='mb-4 text-5xl font-bold text-foreground md:text-6xl'>
 					Our <span className='text-accent'>Works</span>

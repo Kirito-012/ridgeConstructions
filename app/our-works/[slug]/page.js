@@ -1,12 +1,25 @@
 'use client'
 
 import {motion, AnimatePresence} from 'framer-motion'
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef, useCallback} from 'react'
 import {useRouter, useParams} from 'next/navigation'
 import {findWorkBySlug, preloadImages} from '@/lib/works'
 
 function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
+	const thumbnailRefs = useRef([])
+	const thumbnailContainerRef = useRef(null)
+	const [imageLoaded, setImageLoaded] = useState(false)
 	const [direction, setDirection] = useState(0)
+
+	const handlePrevious = useCallback(() => {
+		setDirection(-1)
+		onNavigate((currentIndex - 1 + images.length) % images.length)
+	}, [currentIndex, images.length, onNavigate])
+
+	const handleNext = useCallback(() => {
+		setDirection(1)
+		onNavigate((currentIndex + 1) % images.length)
+	}, [currentIndex, images.length, onNavigate])
 
 	useEffect(() => {
 		const handleKeyDown = (e) => {
@@ -17,43 +30,65 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 
 		window.addEventListener('keydown', handleKeyDown)
 		return () => window.removeEventListener('keydown', handleKeyDown)
+	}, [handlePrevious, handleNext, onClose])
+
+	useEffect(() => {
+		setImageLoaded(false)
+
+		const scrollToThumbnail = () => {
+			if (
+				thumbnailRefs.current[currentIndex] &&
+				thumbnailContainerRef.current
+			) {
+				const thumbnail = thumbnailRefs.current[currentIndex]
+				const container = thumbnailContainerRef.current
+
+				const thumbnailRect = thumbnail.getBoundingClientRect()
+				const containerRect = container.getBoundingClientRect()
+
+				const scrollLeft =
+					thumbnail.offsetLeft -
+					containerRect.width / 2 +
+					thumbnailRect.width / 2
+
+				container.scrollTo({
+					left: scrollLeft,
+					behavior: 'smooth',
+				})
+			}
+		}
+
+		requestAnimationFrame(scrollToThumbnail)
 	}, [currentIndex])
 
-	const handlePrevious = () => {
-		setDirection(-1)
-		onNavigate((currentIndex - 1 + images.length) % images.length)
-	}
+	useEffect(() => {
+		const preloadAdjacentImages = () => {
+			const prevIndex = (currentIndex - 1 + images.length) % images.length
+			const nextIndex = (currentIndex + 1) % images.length
 
-	const handleNext = () => {
-		setDirection(1)
-		onNavigate((currentIndex + 1) % images.length)
-	}
+			;[prevIndex, nextIndex].forEach((idx) => {
+				const img = new Image()
+				img.src = images[idx]
+			})
+		}
 
-	const slideVariants = {
-		enter: (direction) => ({
-			x: direction > 0 ? 300 : -300,
-			opacity: 0,
-		}),
-		center: {
-			x: 0,
-			opacity: 1,
-		},
-		exit: (direction) => ({
-			x: direction < 0 ? 300 : -300,
-			opacity: 0,
-		}),
-	}
+		preloadAdjacentImages()
+	}, [currentIndex, images])
 
 	return (
 		<motion.div
 			initial={{opacity: 0}}
 			animate={{opacity: 1}}
-			exixt={{opacity: 0}}
-			className='fixed inset-0 z-[100] bg-black/95 backdrop-blur-sm flex items-center justify-center'
+			exit={{opacity: 0}}
+			transition={{duration: 0.2, ease: 'easeOut'}}
+			className='fixed inset-0 z-100 bg-black/95 backdrop-blur-sm flex items-center justify-center will-change-opacity'
 			onClick={onClose}>
-			<button
+			<motion.button
+				initial={{opacity: 0, scale: 0.8}}
+				animate={{opacity: 1, scale: 1}}
+				transition={{delay: 0.1}}
 				onClick={onClose}
-				className='absolute top-4 right-4 z-[110] text-white/80 hover:text-white p-2 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-300 group'>
+				className='absolute top-4 right-4 z-110 text-white/80 hover:text-white p-2 rounded-full bg-black/50 hover:bg-black/70 transition-all duration-200 group will-change-transform'>
 				<svg
 					className='w-8 h-8'
 					fill='none'
@@ -66,13 +101,17 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 						d='M6 18L18 6M6 6l12 12'
 					/>
 				</svg>
-			</button>
+			</motion.button>
 
-			<div className='absolute top-4 left-1/2 transform -translate-x-1/2 z-[110] bg-black/50 px-4 py-2 rounded-full'>
+			<motion.div
+				initial={{opacity: 0, y: -10}}
+				animate={{opacity: 1, y: 0}}
+				transition={{delay: 0.1}}
+				className='absolute top-4 left-1/2 transform -translate-x-1/2 z-110 bg-black/50 px-4 py-2 rounded-full backdrop-blur-md'>
 				<p className='text-white font-medium'>
 					{currentIndex + 1} / {images.length}
 				</p>
-			</div>
+			</motion.div>
 
 			<div
 				className='relative w-full flex items-center justify-center px-4 md:px-20 pb-8'
@@ -82,9 +121,11 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 				}}
 				onClick={(e) => e.stopPropagation()}>
 				{images.length > 1 && (
-					<button
+					<motion.button
+						whileHover={{scale: 1.1}}
+						whileTap={{scale: 0.95}}
 						onClick={handlePrevious}
-						className='absolute left-4 z-[110] text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-all duration-300 hover:scale-110'>
+						className='absolute left-4 z-110 text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-colors duration-200 will-change-transform'>
 						<svg
 							className='w-6 h-6'
 							fill='none'
@@ -97,37 +138,56 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 								d='M15 19l-7-7 7-7'
 							/>
 						</svg>
-					</button>
+					</motion.button>
 				)}
 
-				<div className='relative w-full h-full flex items-center justify-center'>
+				<div className='relative w-full h-full flex items-center justify-center overflow-hidden'>
 					<AnimatePresence
 						initial={false}
-						custom={direction}
-						mode='wait'>
+						mode='wait'
+						custom={direction}>
 						<motion.img
 							key={currentIndex}
+							custom={direction}
+							initial={{
+								opacity: 0,
+								x: direction > 0 ? 100 : -100,
+							}}
+							animate={{
+								opacity: 1,
+								x: 0,
+							}}
+							exit={{
+								opacity: 0,
+								x: direction > 0 ? -100 : 100,
+							}}
+							transition={{
+								duration: 0.3,
+								ease: [0.4, 0, 0.2, 1],
+							}}
 							src={images[currentIndex]}
 							alt={`Gallery image ${currentIndex + 1}`}
-							custom={direction}
-							variants={slideVariants}
-							initial='enter'
-							animate='center'
-							exit='exit'
-							transition={{
-								x: {type: 'tween', duration: 0.3, ease: 'easeInOut'},
-								opacity: {duration: 0.2},
-							}}
-							className='max-w-full max-h-full object-contain rounded-lg shadow-2xl'
+							className='max-w-full max-h-full object-contain rounded-lg shadow-2xl will-change-transform'
 							onClick={(e) => e.stopPropagation()}
+							onLoad={() => setImageLoaded(true)}
+							loading='eager'
+							draggable={false}
 						/>
 					</AnimatePresence>
+
+					{!imageLoaded && (
+						<div className='absolute inset-0 flex items-center justify-center'>
+							<div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent'></div>
+						</div>
+					)}
 				</div>
 
 				{images.length > 1 && (
-					<button
+					<motion.button
+						whileHover={{scale: 1.1}}
+						whileTap={{scale: 0.95}}
 						onClick={handleNext}
-						className='absolute right-4 z-[110] text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-all duration-300 hover:scale-110'>
+						className='absolute right-4 z-110 text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-colors duration-200 will-change-transform'>
 						<svg
 							className='w-6 h-6'
 							fill='none'
@@ -140,25 +200,39 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 								d='M9 5l7 7-7 7'
 							/>
 						</svg>
-					</button>
+					</motion.button>
 				)}
 			</div>
 
 			<div className='h-4'></div>
 
 			{images.length > 1 && (
-				<div className='absolute bottom-6 left-1/2 transform -translate-x-1/2 z-[110] w-full max-w-5xl px-4'>
-					<div className='bg-black/60 backdrop-blur-md rounded-xl p-3'>
-						<div className='flex gap-3 overflow-x-auto scrollbar-hide justify-start md:justify-center'>
+				<motion.div
+					initial={{opacity: 0, y: 20}}
+					animate={{opacity: 1, y: 0}}
+					transition={{delay: 0.2}}
+					className='absolute bottom-6 left-1/2 transform -translate-x-1/2 z-110 w-full max-w-5xl px-4'>
+					<div className='bg-black/60 backdrop-blur-md rounded-xl p-3 shadow-2xl'>
+						<div
+							ref={thumbnailContainerRef}
+							className='flex gap-3 overflow-x-auto scrollbar-hide justify-start scroll-smooth'
+							style={{
+								scrollbarWidth: 'none',
+								msOverflowStyle: 'none',
+								WebkitOverflowScrolling: 'touch',
+							}}>
 							{images.map((img, idx) => (
-								<button
+								<motion.button
 									key={idx}
+									ref={(el) => (thumbnailRefs.current[idx] = el)}
+									whileHover={{scale: 1.05}}
+									whileTap={{scale: 0.95}}
 									onClick={(e) => {
 										e.stopPropagation()
 										setDirection(idx > currentIndex ? 1 : -1)
 										onNavigate(idx)
 									}}
-									className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-3 transition-all duration-300 ${
+									className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-3 transition-all duration-200 will-change-transform ${
 										idx === currentIndex
 											? 'border-accent ring-2 ring-accent/50 shadow-lg shadow-accent/50 scale-105'
 											: 'border-white/30 hover:border-white/60 opacity-70 hover:opacity-100'
@@ -166,13 +240,15 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 									<img
 										src={img}
 										alt={`Thumbnail ${idx + 1}`}
-										className='w-full h-full object-cover'
+										className='w-full h-full object-cover pointer-events-none'
+										loading='lazy'
+										draggable={false}
 									/>
-								</button>
+								</motion.button>
 							))}
 						</div>
 					</div>
-				</div>
+				</motion.div>
 			)}
 		</motion.div>
 	)
@@ -229,20 +305,20 @@ export default function WorkDetailPage() {
 		loadWork()
 	}, [slug])
 
-	const openLightbox = (index) => {
+	const openLightbox = useCallback((index) => {
 		setCurrentImageIndex(index)
 		setLightboxOpen(true)
 		document.body.style.overflow = 'hidden'
-	}
+	}, [])
 
-	const closeLightbox = () => {
+	const closeLightbox = useCallback(() => {
 		setLightboxOpen(false)
 		document.body.style.overflow = 'unset'
-	}
+	}, [])
 
-	const navigateImage = (index) => {
+	const navigateImage = useCallback((index) => {
 		setCurrentImageIndex(index)
-	}
+	}, [])
 
 	if (loading || !imagesLoaded) {
 		return (
@@ -289,12 +365,8 @@ export default function WorkDetailPage() {
 	}
 
 	return (
-		<motion.div
-			initial={{opacity: 0}}
-			animate={{opacity: 1}}
-			transition={{duration: 0.5}}
-			className='min-h-screen bg-background'>
-			<AnimatePresence>
+		<div className='min-h-screen bg-background'>
+			<AnimatePresence mode='wait'>
 				{lightboxOpen && (
 					<ImageLightbox
 						images={work.gallery}
@@ -313,53 +385,37 @@ export default function WorkDetailPage() {
 					}}
 				/>
 				<div className='absolute inset-0 bg-black/20' />
-				{/* <div className='absolute inset-0 bg-linear-to-b from-black/5 to-background' /> */}
-
 				<div className='absolute inset-0 flex items-center justify-center'>
-					<motion.h1
-						initial={{opacity: 0, y: 30}}
-						animate={{opacity: 1, y: 0}}
-						transition={{duration: 0.8}}
-						className='text-5xl md:text-7xl font-bold text-always-white text-center px-4'>
+					<h1 className='text-5xl md:text-7xl font-bold text-always-white text-center px-4'>
 						{work.title}
-					</motion.h1>
+					</h1>
 				</div>
 			</div>
 
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-				<motion.div
-					initial={{opacity: 0, y: 20}}
-					animate={{opacity: 1, y: 0}}
-					transition={{duration: 0.6, delay: 0.2}}
-					className='mb-16 text-center max-w-3xl mx-auto'>
+				<div className='mb-16 text-center max-w-3xl mx-auto'>
 					<p className='text-sm lg:text-lg text-muted-foreground leading-relaxed'>
 						{work.description}
 					</p>
-				</motion.div>
+				</div>
 
 				{work.gallery && work.gallery.length > 0 && (
-					<motion.div
-						initial={{opacity: 0}}
-						animate={{opacity: 1}}
-						transition={{duration: 0.6, delay: 0.4}}>
+					<div>
 						<h2 className='text-3xl font-bold text-foreground mb-12 text-center'>
 							Project <span className='text-accent'>Gallery</span>
 						</h2>
 
 						<div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
 							{work.gallery[0] && (
-								<motion.div
-									initial={{opacity: 0, scale: 0.9}}
-									animate={{opacity: 1, scale: 1}}
-									transition={{duration: 0.5, delay: 0.5}}
+								<div
 									onClick={() => openLightbox(0)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer'>
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer bg-muted/20 will-change-transform'>
 									<div
-										className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+										className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 										style={{backgroundImage: `url(${work.gallery[0]})`}}
 									/>
-									<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500' />
-									<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+									<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300' />
+									<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200'>
 										<div className='bg-accent/90 p-3 rounded-full'>
 											<svg
 												className='w-8 h-8 text-white'
@@ -375,15 +431,12 @@ export default function WorkDetailPage() {
 											</svg>
 										</div>
 									</div>
-								</motion.div>
+								</div>
 							)}{' '}
 							{work.gallery[1] && (
-								<motion.div
-									initial={{opacity: 0, scale: 0.9}}
-									animate={{opacity: 1, scale: 1}}
-									transition={{duration: 0.5, delay: 0.6}}
+								<div
 									onClick={() => openLightbox(1)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 md:row-span-1 h-[250px] cursor-pointer'>
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 md:row-span-1 h-[250px] cursor-pointer bg-muted/20'>
 									<div
 										className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
 										style={{backgroundImage: `url(${work.gallery[1]})`}}
@@ -405,15 +458,12 @@ export default function WorkDetailPage() {
 											</svg>
 										</div>
 									</div>
-								</motion.div>
+								</div>
 							)}{' '}
 							{work.gallery[2] && (
-								<motion.div
-									initial={{opacity: 0, scale: 0.9}}
-									animate={{opacity: 1, scale: 1}}
-									transition={{duration: 0.5, delay: 0.7}}
+								<div
 									onClick={() => openLightbox(2)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-1 h-[250px] cursor-pointer'>
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-1 h-[250px] cursor-pointer bg-muted/20'>
 									<div
 										className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
 										style={{backgroundImage: `url(${work.gallery[2]})`}}
@@ -435,15 +485,12 @@ export default function WorkDetailPage() {
 											</svg>
 										</div>
 									</div>
-								</motion.div>
+								</div>
 							)}{' '}
 							{work.gallery[3] && (
-								<motion.div
-									initial={{opacity: 0, scale: 0.9}}
-									animate={{opacity: 1, scale: 1}}
-									transition={{duration: 0.5, delay: 0.8}}
+								<div
 									onClick={() => openLightbox(3)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-1 h-[250px] cursor-pointer'>
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-1 h-[250px] cursor-pointer bg-muted/20'>
 									<div
 										className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
 										style={{backgroundImage: `url(${work.gallery[3]})`}}
@@ -465,15 +512,12 @@ export default function WorkDetailPage() {
 											</svg>
 										</div>
 									</div>
-								</motion.div>
+								</div>
 							)}{' '}
 							{work.gallery[4] && (
-								<motion.div
-									initial={{opacity: 0, scale: 0.9}}
-									animate={{opacity: 1, scale: 1}}
-									transition={{duration: 0.5, delay: 0.9}}
+								<div
 									onClick={() => openLightbox(4)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 h-[250px] cursor-pointer'>
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 h-[250px] cursor-pointer bg-muted/20'>
 									<div
 										className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
 										style={{backgroundImage: `url(${work.gallery[4]})`}}
@@ -495,15 +539,12 @@ export default function WorkDetailPage() {
 											</svg>
 										</div>
 									</div>
-								</motion.div>
+								</div>
 							)}{' '}
 							{work.gallery[5] && (
-								<motion.div
-									initial={{opacity: 0, scale: 0.9}}
-									animate={{opacity: 1, scale: 1}}
-									transition={{duration: 0.5, delay: 1.0}}
+								<div
 									onClick={() => openLightbox(5)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 h-[250px] cursor-pointer'>
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 md:col-span-2 h-[250px] cursor-pointer bg-muted/20'>
 									<div
 										className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
 										style={{backgroundImage: `url(${work.gallery[5]})`}}
@@ -525,7 +566,7 @@ export default function WorkDetailPage() {
 											</svg>
 										</div>
 									</div>
-								</motion.div>
+								</div>
 							)}{' '}
 							{work.gallery.length > 6 && (
 								<div className='md:col-span-4'>
@@ -534,19 +575,16 @@ export default function WorkDetailPage() {
 									</h3>
 									<div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
 										{work.gallery.slice(6).map((image, idx) => (
-											<motion.div
+											<div
 												key={idx}
-												initial={{opacity: 0, scale: 0.9}}
-												animate={{opacity: 1, scale: 1}}
-												transition={{duration: 0.5, delay: 1.1 + idx * 0.1}}
 												onClick={() => openLightbox(6 + idx)}
-												className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 h-[250px] cursor-pointer'>
+												className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 h-[250px] cursor-pointer bg-muted/20 will-change-transform'>
 												<div
-													className='absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110'
+													className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 													style={{backgroundImage: `url(${image})`}}
 												/>
-												<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500' />
-												<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
+												<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+												<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200'>
 													<div className='bg-accent/90 p-3 rounded-full'>
 														<svg
 															className='w-6 h-6 text-white'
@@ -562,15 +600,15 @@ export default function WorkDetailPage() {
 														</svg>
 													</div>
 												</div>
-											</motion.div>
+											</div>
 										))}
 									</div>
 								</div>
 							)}
 						</div>
-					</motion.div>
+					</div>
 				)}
 			</div>
-		</motion.div>
+		</div>
 	)
 }
