@@ -1,11 +1,11 @@
 'use client'
 
-import {motion, useInView} from 'framer-motion'
-import {useRef, useState, useEffect, useCallback} from 'react'
-import {useRouter} from 'next/navigation'
-import {fetchWorks, preloadImages} from '@/lib/works'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState, useEffect, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
+import { fetchWorks, preloadImages } from '@/lib/works'
 
-function ProjectDetailPage({work, onBack}) {
+function ProjectDetailPage({ work, onBack }) {
 	return (
 		<div className='min-h-screen bg-background'>
 			<div className='relative h-96 overflow-hidden'>
@@ -20,8 +20,8 @@ function ProjectDetailPage({work, onBack}) {
 
 				<motion.button
 					onClick={onBack}
-					whileHover={{scale: 1.05}}
-					whileTap={{scale: 0.95}}
+					whileHover={{ scale: 1.05 }}
+					whileTap={{ scale: 0.95 }}
 					className='absolute top-18 left-2 md:top-20 md:left-6 z-50 flex items-center gap-2 px-3 py-1.5 bg-orange-500/45 hover:bg-orange-500 text-white rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl font-semibold will-change-transform'>
 					<svg
 						className='w-5 h-5'
@@ -40,9 +40,9 @@ function ProjectDetailPage({work, onBack}) {
 
 				<div className='absolute inset-0 flex items-center justify-center'>
 					<motion.h1
-						initial={{opacity: 0, y: 20}}
-						animate={{opacity: 1, y: 0}}
-						transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
 						className='text-5xl md:text-7xl font-bold text-always-white text-center px-4'>
 						{work.title}
 					</motion.h1>
@@ -51,9 +51,9 @@ function ProjectDetailPage({work, onBack}) {
 
 			<div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
 				<motion.div
-					initial={{opacity: 0, y: 15}}
-					animate={{opacity: 1, y: 0}}
-					transition={{duration: 0.4, delay: 0.1, ease: [0.4, 0, 0.2, 1]}}
+					initial={{ opacity: 0, y: 15 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.4, delay: 0.1, ease: [0.4, 0, 0.2, 1] }}
 					className='mb-16 text-center max-w-3xl mx-auto'>
 					<p className='text-xl text-muted-foreground leading-relaxed'>
 						{work.description}
@@ -61,9 +61,9 @@ function ProjectDetailPage({work, onBack}) {
 				</motion.div>
 
 				<motion.div
-					initial={{opacity: 0}}
-					animate={{opacity: 1}}
-					transition={{duration: 0.3, delay: 0.2, ease: 'easeOut'}}>
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.3, delay: 0.2, ease: 'easeOut' }}>
 					<h2 className='text-3xl font-bold text-foreground mb-12 text-center'>
 						Project <span className='text-accent'>Gallery</span>
 					</h2>
@@ -72,45 +72,23 @@ function ProjectDetailPage({work, onBack}) {
 						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer will-change-transform'>
 							<div
 								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
-								style={{backgroundImage: `url(${work.gallery[0]})`}}
+								style={{ backgroundImage: `url(${work.gallery[0]})` }}
 							/>
 							<div className='absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300' />
 						</div>
-						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-1 h-[250px] cursor-pointer will-change-transform'>
+						{[1, 2, 3, 4, 5].map((i) => (
 							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
-								style={{backgroundImage: `url(${work.gallery[1]})`}}
-							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>
-						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-1 h-[250px] cursor-pointer will-change-transform'>
-							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
-								style={{backgroundImage: `url(${work.gallery[2]})`}}
-							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>
-						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-1 h-[250px] cursor-pointer will-change-transform'>
-							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
-								style={{backgroundImage: `url(${work.gallery[3]})`}}
-							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>
-						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 h-[250px] cursor-pointer will-change-transform'>
-							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
-								style={{backgroundImage: `url(${work.gallery[4]})`}}
-							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>
-						<div className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 h-[250px] cursor-pointer will-change-transform'>
-							<div
-								className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
-								style={{backgroundImage: `url(${work.gallery[5]})`}}
-							/>
-							<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
-						</div>
+								key={i}
+								className={`group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 ${
+									i === 1 || i === 4 ? 'md:col-span-2' : 'md:col-span-1'
+								} h-[250px] cursor-pointer will-change-transform`}>
+								<div
+									className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
+									style={{ backgroundImage: `url(${work.gallery[i]})` }}
+								/>
+								<div className='absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300' />
+							</div>
+						))}
 					</div>
 				</motion.div>
 			</div>
@@ -118,16 +96,20 @@ function ProjectDetailPage({work, onBack}) {
 	)
 }
 
-function WorkCard({work, index, onClick}) {
+function WorkCard({ work, onClick }) {
 	const ref = useRef(null)
-	const isInView = useInView(ref, {once: true, margin: '-100px'})
+	const isInView = useInView(ref, { once: true, margin: '-100px' })
 
 	return (
 		<motion.div
 			ref={ref}
-			initial={{opacity: 0, y: 30}}
-			animate={isInView ? {opacity: 1, y: 0} : {opacity: 0, y: 30}}
-			transition={{duration: 0.4, delay: index * 0.05, ease: [0.4, 0, 0.2, 1]}}
+			initial={{ opacity: 0, y: 30 }}
+			animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+			transition={{
+				duration: 0.6,
+				delay: 0, // All cards share the same delay → appear together
+				ease: [0.4, 0, 0.2, 1],
+			}}
 			onClick={onClick}
 			className='group relative overflow-hidden bg-card border border-border rounded-lg shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer will-change-transform'>
 			<div className='relative h-64 overflow-hidden'>
@@ -155,10 +137,10 @@ function WorkCard({work, index, onClick}) {
 }
 
 const CATEGORIES = [
-	{id: 'All', label: 'All'},
-	{id: 'Restaurants', label: 'Restaurants'},
-	{id: 'Healthcare', label: 'Healthcare'},
-	{id: 'Commercial Offices', label: 'Commercial Offices'},
+	{ id: 'All', label: 'All' },
+	{ id: 'Restaurants', label: 'Restaurants' },
+	{ id: 'Healthcare', label: 'Healthcare' },
+	{ id: 'Commercial Offices', label: 'Commercial Offices' },
 ]
 
 export default function OurWorkPage() {
@@ -194,7 +176,6 @@ export default function OurWorkPage() {
 	const handleCardClick = useCallback(
 		(work) => {
 			setNavigating(true)
-
 			setTimeout(() => {
 				router.push(`/our-works/${work.slug}`)
 			}, 100)
@@ -237,13 +218,13 @@ export default function OurWorkPage() {
 		<div className='min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8'>
 			{navigating && (
 				<motion.div
-					initial={{opacity: 0}}
-					animate={{opacity: 1}}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
 					className='fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center'>
 					<div className='text-center'>
 						<div className='relative inline-block'>
 							<div className='animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent'></div>
-							<div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+							<div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
 								<div className='w-8 h-8 bg-accent/20 rounded-full animate-pulse'></div>
 							</div>
 						</div>
@@ -255,10 +236,10 @@ export default function OurWorkPage() {
 			)}
 
 			<motion.div
-				initial={{opacity: 0, y: 15}}
-				whileInView={{opacity: 1, y: 0}}
-				viewport={{once: true}}
-				transition={{duration: 0.4, ease: [0.4, 0, 0.2, 1]}}
+				initial={{ opacity: 0, y: 15 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: true }}
+				transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
 				className='mb-16 text-center'>
 				<h1 className='mb-4 text-5xl font-bold text-foreground md:text-6xl'>
 					Our <span className='text-accent'>Works</span>
@@ -275,8 +256,8 @@ export default function OurWorkPage() {
 						<motion.button
 							key={category.id}
 							onClick={() => setActiveTab(category.id)}
-							whileHover={{scale: 1.05}}
-							whileTap={{scale: 0.95}}
+							whileHover={{ scale: 1.05 }}
+							whileTap={{ scale: 0.95 }}
 							className={`px-6 py-2.5 font-semibold transition-all duration-200 shadow-md hover:shadow-lg will-change-transform ${
 								activeTab === category.id
 									? 'bg-orange-500 text-always-white'
@@ -286,13 +267,13 @@ export default function OurWorkPage() {
 						</motion.button>
 					))}
 				</div>
+
 				{filteredWorks.length > 0 ? (
 					<div className='grid gap-8 md:grid-cols-2'>
-						{filteredWorks.map((work, i) => (
+						{filteredWorks.map((work) => (
 							<WorkCard
 								key={work.id}
 								work={work}
-								index={i}
 								onClick={() => handleCardClick(work)}
 							/>
 						))}

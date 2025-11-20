@@ -94,9 +94,9 @@ export default function Footer() {
 								Contact
 							</h4>
 							<div className='space-y-2 sm:space-y-3 text-sm text-gray-400'>
-								<p>Toronto, ON</p>
-								<p>(416) 555-0123</p>
-								<p>info@frontridge.com</p>
+								<p>46 squire Ellis drive,Brampton,Ontario L6P 4C2</p>
+								<p>+1 4164333383</p>
+								<p>Info@frontridge.ca</p>
 							</div>
 						</div>
 					</div>

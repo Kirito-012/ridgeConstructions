@@ -102,7 +102,7 @@ export default function ContactPage() {
 									<h3 className='text-lg font-semibold text-foreground mb-1'>
 										Phone
 									</h3>
-									<p className='text-muted-foreground'>+1 (555) 123-4567</p>
+									<p className='text-muted-foreground'>+1 4164333383</p>
 								</div>
 							</motion.div>
 
@@ -130,7 +130,7 @@ export default function ContactPage() {
 									<h3 className='text-lg font-semibold text-foreground mb-1'>
 										Email
 									</h3>
-									<p className='text-muted-foreground'>contact@company.com</p>
+									<p className='text-muted-foreground'>Info@frontridge.ca</p>
 								</div>
 							</motion.div>
 
@@ -165,9 +165,9 @@ export default function ContactPage() {
 										Address
 									</h3>
 									<p className='text-muted-foreground'>
-										123 Business Street,
+										46 squire Ellis drive,
 										<br />
-										Suite 100, City, State 12345
+									Brampton,Ontario L6P 4C2
 									</p>
 								</div>
 							</motion.div>
