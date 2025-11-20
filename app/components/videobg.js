@@ -64,7 +64,7 @@ export default function HeroSliderSection() {
 	}
 
 	return (
-		<div className='relative w-full h-screen overflow-hidden bg-black'>
+		<div className='relative w-full h-[90vh] overflow-hidden bg-black'>
 			<AnimatePresence mode='wait'>
 				<motion.div
 					key={currentProject}
@@ -92,7 +92,7 @@ export default function HeroSliderSection() {
 						initial={{opacity: 0, y: 20}}
 						animate={{opacity: 1, y: 0}}
 						transition={{delay: 0.3}}
-						className='absolute bottom-20 left-12 z-10'>
+						className='absolute bottom-10 left-12 z-10'>
 						<h2 className='text-5xl font-bold text-always-white mb-2 tracking-wide'>
 							{projects[currentProject].name}
 						</h2>

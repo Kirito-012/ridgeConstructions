@@ -66,7 +66,7 @@ export default function Navbar() {
 								<a
 									key={link.name}
 									href={link.href}
-									className={`text-sm transition-colors ${
+									className={`text-md transition-colors ${
 										isActive
 											? 'active-nav'
 											: 'text-[#e55a24]/80 hover:text-[#e55a24]'
