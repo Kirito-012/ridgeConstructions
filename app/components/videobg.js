@@ -100,7 +100,7 @@ const HeroSliderSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
-            className="absolute bottom-20 md:bottom-12 left-4 md:left-12 right-4 md:right-auto z-10 max-w-2xl"
+            className="absolute bottom-26 md:bottom-12 left-4 md:left-12 right-4 md:right-auto z-10 max-w-2xl"
           >
             <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-always-white mb-1 md:mb-3 tracking-tight md:tracking-wide">
               {currentProjectData.name}
