@@ -22,21 +22,18 @@ export default function ContactPage() {
 
 	const handleSubmit = () => {
 		setIsSubmitting(true)
-		
-		// Simulate form submission
+
 		setTimeout(() => {
 			setIsSubmitting(false)
 			setShowSuccess(true)
-			
-			// Reset form
+
 			setFormData({
 				fullName: '',
 				phone: '',
 				email: '',
 				message: '',
 			})
-			
-			// Hide success message after 5 seconds
+
 			setTimeout(() => {
 				setShowSuccess(false)
 			}, 5000)
@@ -55,12 +52,12 @@ export default function ContactPage() {
 						Get In <span className='text-accent'>Touch</span>
 					</h1>
 					<p className='mx-auto max-w-3xl text-lg text-muted-foreground'>
-						Have a question or want to work together? We'd love to hear from you.
+						Have a question or want to work together? We'd love to hear from
+						you.
 					</p>
 				</motion.div>
 
 				<div className='grid lg:grid-cols-2 gap-12'>
-					{/* Left Side - Contact Information */}
 					<motion.div
 						initial={{opacity: 0, x: -30}}
 						animate={{opacity: 1, x: 0}}
@@ -71,20 +68,19 @@ export default function ContactPage() {
 								Contact <span className='text-accent'>Us</span>
 							</h2>
 							<p className='text-muted-foreground leading-relaxed'>
-								We're here to help and answer any question you might have. We look
-								forward to hearing from you! Please fill out the form, or reach out
-								to us directly using the contact information below.
+								We're here to help and answer any question you might have. We
+								look forward to hearing from you! Please fill out the form, or
+								reach out to us directly using the contact information below.
 							</p>
 						</div>
 
 						<div className='space-y-6'>
-							{/* Phone */}
 							<motion.div
 								initial={{opacity: 0, y: 20}}
 								animate={{opacity: 1, y: 0}}
 								transition={{duration: 0.6, delay: 0.3}}
 								className='flex items-start gap-4 group'>
-								<div className='flex-shrink-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300'>
+								<div className='flex-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300'>
 									<svg
 										className='w-6 h-6 text-accent'
 										fill='none'
@@ -106,13 +102,12 @@ export default function ContactPage() {
 								</div>
 							</motion.div>
 
-							{/* Email */}
 							<motion.div
 								initial={{opacity: 0, y: 20}}
 								animate={{opacity: 1, y: 0}}
 								transition={{duration: 0.6, delay: 0.4}}
 								className='flex items-start gap-4 group'>
-								<div className='flex-shrink-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300'>
+								<div className='flex-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300'>
 									<svg
 										className='w-6 h-6 text-accent'
 										fill='none'
@@ -134,13 +129,12 @@ export default function ContactPage() {
 								</div>
 							</motion.div>
 
-							{/* Address */}
 							<motion.div
 								initial={{opacity: 0, y: 20}}
 								animate={{opacity: 1, y: 0}}
 								transition={{duration: 0.6, delay: 0.5}}
 								className='flex items-start gap-4 group'>
-								<div className='flex-shrink-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300'>
+								<div className='flex-0 w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-300'>
 									<svg
 										className='w-6 h-6 text-accent'
 										fill='none'
@@ -167,21 +161,19 @@ export default function ContactPage() {
 									<p className='text-muted-foreground'>
 										46 squire Ellis drive,
 										<br />
-									Brampton,Ontario L6P 4C2
+										Brampton,Ontario L6P 4C2
 									</p>
 								</div>
 							</motion.div>
 						</div>
 					</motion.div>
 
-					{/* Right Side - Contact Form */}
 					<motion.div
 						initial={{opacity: 0, x: 30}}
 						animate={{opacity: 1, x: 0}}
 						transition={{duration: 0.6, delay: 0.2}}
 						className='bg-card border border-border rounded-lg shadow-xl p-8'>
 						<div className='space-y-6'>
-							{/* Full Name */}
 							<div>
 								<label
 									htmlFor='fullName'
@@ -199,7 +191,6 @@ export default function ContactPage() {
 								/>
 							</div>
 
-							{/* Phone */}
 							<div>
 								<label
 									htmlFor='phone'
@@ -217,7 +208,6 @@ export default function ContactPage() {
 								/>
 							</div>
 
-							{/* Email */}
 							<div>
 								<label
 									htmlFor='email'
@@ -235,7 +225,6 @@ export default function ContactPage() {
 								/>
 							</div>
 
-							{/* Message */}
 							<div>
 								<label
 									htmlFor='message'
@@ -253,11 +242,10 @@ export default function ContactPage() {
 								/>
 							</div>
 
-							{/* Submit Button */}
 							<button
 								onClick={handleSubmit}
 								disabled={isSubmitting}
-								className='w-full bg-accent hover:bg-accent/90 text-white font-bold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-accent/40 hover:scale-[1.02] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2'>
+								className='w-full text-always-white bg-accent hover:bg-accent/90 text-white font-bold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-accent/40 hover:scale-[1.02] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2'>
 								{isSubmitting ? (
 									<>
 										<svg
@@ -298,7 +286,6 @@ export default function ContactPage() {
 								)}
 							</button>
 
-							{/* Success Message */}
 							{showSuccess && (
 								<motion.div
 									initial={{opacity: 0, y: -10}}
@@ -306,7 +293,7 @@ export default function ContactPage() {
 									exit={{opacity: 0}}
 									className='bg-green-500/10 border border-green-500/50 rounded-lg p-4 flex items-center gap-3'>
 									<svg
-										className='w-6 h-6 text-green-500 flex-shrink-0'
+										className='w-6 h-6 text-green-500 flex-0'
 										fill='none'
 										stroke='currentColor'
 										viewBox='0 0 24 24'>

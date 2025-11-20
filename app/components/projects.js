@@ -55,12 +55,10 @@ export default function Projects() {
 			try {
 				setLoading(true)
 				const works = await fetchWorks()
-				// Get the latest 4 works
 				const latestWorks = works.slice(0, 4)
 				setProjects(latestWorks)
 			} catch (error) {
 				console.error('Error loading projects:', error)
-				// Set empty array on error
 				setProjects([])
 			} finally {
 				setLoading(false)
@@ -112,7 +110,7 @@ export default function Projects() {
 									whileHover={{scale: 1.05}}
 									whileTap={{scale: 0.95}}
 									transition={{duration: 0.15, ease: [0.4, 0, 0.2, 1]}}
-									className='group inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-white font-black px-12 py-5 shadow-2xl hover:shadow-accent/40 transition-colors duration-200 will-change-transform'>
+									className='group text-always-white inline-flex items-center gap-3 bg-accent hover:bg-accent/90 text-white font-black px-12 py-5 shadow-2xl hover:shadow-accent/40 transition-colors duration-200 will-change-transform'>
 									VIEW ALL PROJECTS
 									<svg
 										className='w-5 h-5 transition-transform duration-200 group-hover:translate-x-1'
