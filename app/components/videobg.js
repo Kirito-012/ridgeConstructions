@@ -151,7 +151,7 @@ NavButton.displayName = 'NavButton';
 
 // Project dots - centered on mobile, right-aligned on larger screens
 const ProjectDots = memo(({ currentProject, goToProject }) => (
-  <div className="absolute bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:right-12 z-20 flex gap-2 md:gap-3">
+  <div className="absolute bottom-14 md:bottom-12 left-1/2 -translate-x-1/2 md:left-auto md:-translate-x-0 md:right-12 z-20 flex gap-2 md:gap-3">
     {projects.map((_, index) => (
       <button
         key={index}
