@@ -1,7 +1,7 @@
 'use client'
 
 import {motion} from 'framer-motion'
-import {useState, useEffect, useCallback} from 'react'
+import {useState, useEffect, useCallback, Suspense} from 'react'
 import {useRouter, useSearchParams} from 'next/navigation'
 import {fetchWorks, preloadImages} from '@/lib/works'
 
@@ -141,14 +141,31 @@ const CATEGORIES = [
 	{id: 'Salons & Spa', label: 'Salons & Spa'},
 ]
 
-export default function OurWorkPage() {
+// Client component that handles URL search params
+function SearchParamsHandler({setActiveTab}) {
+	const searchParams = useSearchParams()
+
+	useEffect(() => {
+		const category = searchParams.get('category')
+		if (category) {
+			// Check if the category exists in CATEGORIES
+			const validCategory = CATEGORIES.find((cat) => cat.id === category)
+			if (validCategory) {
+				setActiveTab(category)
+			}
+		}
+	}, [searchParams, setActiveTab])
+
+	return null
+}
+
+function OurWorkPageContent() {
 	const [works, setWorks] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [navigating, setNavigating] = useState(false)
 	const [error, setError] = useState(null)
 	const [activeTab, setActiveTab] = useState('All')
 	const router = useRouter()
-	const searchParams = useSearchParams()
 
 	useEffect(() => {
 		const loadWorks = async () => {
@@ -171,18 +188,6 @@ export default function OurWorkPage() {
 
 		loadWorks()
 	}, [])
-
-	// Set active tab from URL parameter
-	useEffect(() => {
-		const category = searchParams.get('category')
-		if (category) {
-			// Check if the category exists in CATEGORIES
-			const validCategory = CATEGORIES.find((cat) => cat.id === category)
-			if (validCategory) {
-				setActiveTab(category)
-			}
-		}
-	}, [searchParams])
 
 	const handleCardClick = useCallback(
 		(work) => {
@@ -227,6 +232,10 @@ export default function OurWorkPage() {
 
 	return (
 		<div className='min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8'>
+			<Suspense fallback={null}>
+				<SearchParamsHandler setActiveTab={setActiveTab} />
+			</Suspense>
+
 			{navigating && (
 				<motion.div
 					initial={{opacity: 0}}
@@ -318,5 +327,18 @@ export default function OurWorkPage() {
 				)}
 			</div>
 		</div>
+	)
+}
+
+export default function OurWorkPage() {
+	return (
+		<Suspense
+			fallback={
+				<div className='min-h-screen flex items-center justify-center'>
+					<div className='text-muted-foreground'>Loading...</div>
+				</div>
+			}>
+			<OurWorkPageContent />
+		</Suspense>
 	)
 }
