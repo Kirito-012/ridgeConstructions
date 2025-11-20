@@ -102,10 +102,10 @@ const HeroSliderSection = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="absolute bottom-20 md:bottom-12 left-4 md:left-12 right-4 md:right-auto z-10 max-w-2xl"
           >
-            <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-1 md:mb-3 tracking-tight md:tracking-wide">
+            <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-always-white mb-1 md:mb-3 tracking-tight md:tracking-wide">
               {currentProjectData.name}
             </h2>
-            <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 uppercase tracking-wider">
+            <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl text-always-white uppercase tracking-wider">
               {currentProjectData.type}
             </p>
           </motion.div>
@@ -140,9 +140,9 @@ const NavButton = memo(({ direction, onClick }) => {
       aria-label={isLeft ? 'Previous project' : 'Next project'}
     >
       {isLeft ? (
-        <ChevronLeft className="w-7 h-7 md:w-8 md:h-8 text-white" />
+        <ChevronLeft className="w-7 h-7 md:w-8 md:h-8 text-always-white" />
       ) : (
-        <ChevronRight className="w-7 h-7 md:w-8 md:h-8 text-white" />
+        <ChevronRight className="w-7 h-7 md:w-8 md:h-8 text-always-white" />
       )}
     </button>
   );
