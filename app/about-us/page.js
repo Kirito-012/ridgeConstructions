@@ -281,7 +281,7 @@ export default function AboutPage() {
 
 						<motion.a
 							href='/contact'
-							className='inline-block bg-accent px-8 sm:px-12 py-4 sm:py-5 font-bold uppercase tracking-wider text-base sm:text-lg text-accent-foreground transition-all duration-300 hover:bg-accent/90 shadow-2xl hover:shadow-accent/50'
+							className='inline-block text-always-white bg-accent px-8 sm:px-12 py-4 sm:py-5 font-bold uppercase tracking-wider text-base sm:text-lg text-accent-foreground transition-all duration-300 hover:bg-accent/90 shadow-2xl hover:shadow-accent/50'
 							whileHover={{scale: 1.05, y: -2}}
 							whileTap={{scale: 0.98}}>
 							Connect Now

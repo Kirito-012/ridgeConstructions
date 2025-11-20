@@ -90,25 +90,26 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 						strokeLinecap='round'
 						strokeLinejoin='round'
 						strokeWidth={2}
-					d='M6 18L18 6M6 6l12 12'
-				/>
-			</svg>
-		</button>		<div
-			className='absolute top-4 left-1/2 transform -translate-x-1/2 z-110 bg-black/50 px-4 py-2 rounded-full backdrop-blur-md'>
-			<p className='text-white font-medium'>
-				{currentIndex + 1} / {images.length}
-			</p>
-		</div>			<div
+						d='M6 18L18 6M6 6l12 12'
+					/>
+				</svg>
+			</button>{' '}
+			<div className='absolute top-4 left-1/2 transform -translate-x-1/2 z-110 bg-black/50 px-4 py-2 rounded-full backdrop-blur-md'>
+				<p className='text-white font-medium'>
+					{currentIndex + 1} / {images.length}
+				</p>
+			</div>{' '}
+			<div
 				className='relative w-full flex items-center justify-center px-4 md:px-20 pb-8'
 				style={{
 					height: 'calc(100vh - 240px)',
 					maxHeight: 'calc(100vh - 240px)',
 				}}
 				onClick={(e) => e.stopPropagation()}>
-			{images.length > 1 && (
-				<button
-					onClick={handlePrevious}
-					className='absolute left-4 z-110 text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-colors duration-200'>
+				{images.length > 1 && (
+					<button
+						onClick={handlePrevious}
+						className='absolute left-4 z-110 text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-colors duration-200'>
 						<svg
 							className='w-6 h-6'
 							fill='none'
@@ -118,31 +119,32 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 								strokeLinecap='round'
 								strokeLinejoin='round'
 								strokeWidth={2}
-							d='M15 19l-7-7 7-7'
-						/>
-					</svg>
-				</button>
-			)}			<div className='relative w-full h-full flex items-center justify-center overflow-hidden'>
-				<img
-					key={currentIndex}
-					src={images[currentIndex]}
-					alt={`Gallery image ${currentIndex + 1}`}
-					className='max-w-full max-h-full object-contain rounded-lg shadow-2xl'
-					onClick={(e) => e.stopPropagation()}
-					onLoad={() => setImageLoaded(true)}
-					loading='eager'
-					draggable={false}
-				/>					{!imageLoaded && (
+								d='M15 19l-7-7 7-7'
+							/>
+						</svg>
+					</button>
+				)}{' '}
+				<div className='relative w-full h-full flex items-center justify-center overflow-hidden'>
+					<img
+						key={currentIndex}
+						src={images[currentIndex]}
+						alt={`Gallery image ${currentIndex + 1}`}
+						className='max-w-full max-h-full object-contain rounded-lg shadow-2xl'
+						onClick={(e) => e.stopPropagation()}
+						onLoad={() => setImageLoaded(true)}
+						loading='eager'
+						draggable={false}
+					/>{' '}
+					{!imageLoaded && (
 						<div className='absolute inset-0 flex items-center justify-center'>
 							<div className='animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-accent'></div>
 						</div>
 					)}
 				</div>
-
-			{images.length > 1 && (
-				<button
-					onClick={handleNext}
-					className='absolute right-4 z-110 text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-colors duration-200'>
+				{images.length > 1 && (
+					<button
+						onClick={handleNext}
+						className='absolute right-4 z-110 text-white/80 hover:text-white p-3 rounded-full bg-black/50 hover:bg-accent transition-colors duration-200'>
 						<svg
 							className='w-6 h-6'
 							fill='none'
@@ -152,16 +154,15 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 								strokeLinecap='round'
 								strokeLinejoin='round'
 								strokeWidth={2}
-							d='M9 5l7 7-7 7'
-						/>
-					</svg>
-				</button>
+								d='M9 5l7 7-7 7'
+							/>
+						</svg>
+					</button>
 				)}
-			</div>			<div className='h-4'></div>
-
-		{images.length > 1 && (
-			<div
-				className='absolute bottom-6 left-1/2 transform -translate-x-1/2 z-110 w-full max-w-5xl px-4'>
+			</div>{' '}
+			<div className='h-4'></div>
+			{images.length > 1 && (
+				<div className='absolute bottom-6 left-1/2 transform -translate-x-1/2 z-110 w-full max-w-5xl px-4'>
 					<div className='bg-black/60 backdrop-blur-md rounded-xl p-3 shadow-2xl'>
 						<div
 							ref={thumbnailContainerRef}
@@ -171,16 +172,16 @@ function ImageLightbox({images, currentIndex, onClose, onNavigate}) {
 								msOverflowStyle: 'none',
 								WebkitOverflowScrolling: 'touch',
 							}}>
-						{images.map((img, idx) => (
-							<button
-								key={idx}
-								ref={(el) => (thumbnailRefs.current[idx] = el)}
-								onClick={(e) => {
-									e.stopPropagation()
-									setDirection(idx > currentIndex ? 1 : -1)
-									onNavigate(idx)
-								}}
-								className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-3 transition-all duration-200 ${
+							{images.map((img, idx) => (
+								<button
+									key={idx}
+									ref={(el) => (thumbnailRefs.current[idx] = el)}
+									onClick={(e) => {
+										e.stopPropagation()
+										setDirection(idx > currentIndex ? 1 : -1)
+										onNavigate(idx)
+									}}
+									className={`shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-lg overflow-hidden border-3 transition-all duration-200 ${
 										idx === currentIndex
 											? 'border-accent ring-2 ring-accent/50 shadow-lg shadow-accent/50 scale-105'
 											: 'border-white/30 hover:border-white/60 opacity-70 hover:opacity-100'
@@ -276,16 +277,14 @@ export default function WorkDetailPage() {
 						<div className='animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-accent'></div>
 						<div className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
 							<div className='w-8 h-8 bg-accent/20 rounded-full animate-pulse'></div>
+						</div>
 					</div>
-				</div>
-				<p
-					className='mt-6 text-lg text-muted-foreground font-medium'>
-					{work ? 'Loading images...' : 'Loading project details...'}
-				</p>
-				<p
-					className='mt-2 text-sm text-muted-foreground/70'>
-					Please wait a moment
-				</p>
+					<p className='mt-6 text-lg text-muted-foreground font-medium'>
+						{work ? 'Loading images...' : 'Loading project details...'}
+					</p>
+					<p className='mt-2 text-sm text-muted-foreground/70'>
+						Please wait a moment
+					</p>
 				</div>
 			</div>
 		)
@@ -348,8 +347,8 @@ export default function WorkDetailPage() {
 						<div className='grid grid-cols-1 md:grid-cols-4 gap-4'>
 							{work.gallery[0] && (
 								<div
-							onClick={() => openLightbox(0)}
-							className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer bg-muted/20'>
+									onClick={() => openLightbox(0)}
+									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 md:col-span-2 md:row-span-2 h-[400px] md:h-full cursor-pointer bg-muted/20'>
 									<div
 										className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 										style={{backgroundImage: `url(${work.gallery[0]})`}}
@@ -517,8 +516,8 @@ export default function WorkDetailPage() {
 										{work.gallery.slice(6).map((image, idx) => (
 											<div
 												key={idx}
-									onClick={() => openLightbox(6 + idx)}
-									className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 h-[250px] cursor-pointer bg-muted/20'>
+												onClick={() => openLightbox(6 + idx)}
+												className='group relative overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 h-[250px] cursor-pointer bg-muted/20'>
 												<div
 													className='absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110 will-change-transform'
 													style={{backgroundImage: `url(${image})`}}
