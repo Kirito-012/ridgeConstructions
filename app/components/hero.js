@@ -149,7 +149,7 @@ export default function Hero() {
 						className='grid grid-cols-2 gap-6 text-center'>
 						<div>
 							<p className='text-3xl font-bold text-[color:var(--accent)]'>
-								15+
+								8+
 							</p>
 							<p className='text-sm text-gray-400 uppercase tracking-wider'>
 								Years of Excellence
@@ -157,7 +157,7 @@ export default function Hero() {
 						</div>
 						<div>
 							<p className='text-3xl font-bold text-[color:var(--accent)]'>
-								300+
+								100+
 							</p>
 							<p className='text-sm text-gray-400 uppercase tracking-wider'>
 								Projects Delivered
