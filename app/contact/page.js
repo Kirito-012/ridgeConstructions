@@ -12,6 +12,8 @@ export default function ContactPage() {
 	})
 	const [isSubmitting, setIsSubmitting] = useState(false)
 	const [showSuccess, setShowSuccess] = useState(false)
+	const [showError, setShowError] = useState(false)
+	const [errorMessage, setErrorMessage] = useState('')
 
 	const handleChange = (e) => {
 		setFormData({
@@ -20,13 +22,42 @@ export default function ContactPage() {
 		})
 	}
 
-	const handleSubmit = () => {
+	const handleSubmit = async (e) => {
+		e?.preventDefault()
+
+		// Validate form
+		if (
+			!formData.fullName.trim() ||
+			!formData.email.trim() ||
+			!formData.message.trim()
+		) {
+			setErrorMessage('Please fill in all required fields')
+			setShowError(true)
+			setTimeout(() => setShowError(false), 5000)
+			return
+		}
+
 		setIsSubmitting(true)
+		setShowError(false)
+		setShowSuccess(false)
 
-		setTimeout(() => {
-			setIsSubmitting(false)
+		try {
+			const response = await fetch('/api/contact', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			})
+
+			const data = await response.json()
+
+			if (!response.ok) {
+				throw new Error(data.error || 'Failed to send message')
+			}
+
+			// Success
 			setShowSuccess(true)
-
 			setFormData({
 				fullName: '',
 				phone: '',
@@ -36,8 +67,17 @@ export default function ContactPage() {
 
 			setTimeout(() => {
 				setShowSuccess(false)
-			}, 5000)
-		}, 1500)
+			}, 8000)
+		} catch (error) {
+			console.error('Form submission error:', error)
+			setErrorMessage(
+				error.message || 'Failed to send message. Please try again.'
+			)
+			setShowError(true)
+			setTimeout(() => setShowError(false), 5000)
+		} finally {
+			setIsSubmitting(false)
+		}
 	}
 
 	return (
@@ -173,12 +213,14 @@ export default function ContactPage() {
 						animate={{opacity: 1, x: 0}}
 						transition={{duration: 0.6, delay: 0.2}}
 						className='bg-card border border-border rounded-lg shadow-xl p-8'>
-						<div className='space-y-6'>
+						<form
+							onSubmit={handleSubmit}
+							className='space-y-6'>
 							<div>
 								<label
 									htmlFor='fullName'
 									className='block text-sm font-semibold text-foreground mb-2'>
-									Full Name
+									Full Name <span className='text-red-500'>*</span>
 								</label>
 								<input
 									type='text'
@@ -186,7 +228,9 @@ export default function ContactPage() {
 									name='fullName'
 									value={formData.fullName}
 									onChange={handleChange}
-									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300'
+									required
+									disabled={isSubmitting}
+									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed'
 									placeholder='John Doe'
 								/>
 							</div>
@@ -203,7 +247,8 @@ export default function ContactPage() {
 									name='phone'
 									value={formData.phone}
 									onChange={handleChange}
-									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300'
+									disabled={isSubmitting}
+									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed'
 									placeholder='+1 (555) 123-4567'
 								/>
 							</div>
@@ -212,7 +257,7 @@ export default function ContactPage() {
 								<label
 									htmlFor='email'
 									className='block text-sm font-semibold text-foreground mb-2'>
-									Email Address
+									Email Address <span className='text-red-500'>*</span>
 								</label>
 								<input
 									type='email'
@@ -220,7 +265,9 @@ export default function ContactPage() {
 									name='email'
 									value={formData.email}
 									onChange={handleChange}
-									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300'
+									required
+									disabled={isSubmitting}
+									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed'
 									placeholder='john@example.com'
 								/>
 							</div>
@@ -229,21 +276,23 @@ export default function ContactPage() {
 								<label
 									htmlFor='message'
 									className='block text-sm font-semibold text-foreground mb-2'>
-									Message
+									Message <span className='text-red-500'>*</span>
 								</label>
 								<textarea
 									id='message'
 									name='message'
 									value={formData.message}
 									onChange={handleChange}
+									required
+									disabled={isSubmitting}
 									rows={5}
-									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 resize-none'
+									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 resize-none disabled:opacity-60 disabled:cursor-not-allowed'
 									placeholder='Tell us about your project...'
 								/>
 							</div>
 
 							<button
-								onClick={handleSubmit}
+								type='submit'
 								disabled={isSubmitting}
 								className='w-full text-always-white bg-accent hover:bg-accent/90 text-white font-bold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-accent/40 hover:scale-[1.02] cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100 flex items-center justify-center gap-2'>
 								{isSubmitting ? (
@@ -293,7 +342,7 @@ export default function ContactPage() {
 									exit={{opacity: 0}}
 									className='bg-green-500/10 border border-green-500/50 rounded-lg p-4 flex items-center gap-3'>
 									<svg
-										className='w-6 h-6 text-green-500 flex-0'
+										className='w-6 h-6 text-green-500 shrink-0'
 										fill='none'
 										stroke='currentColor'
 										viewBox='0 0 24 24'>
@@ -314,7 +363,34 @@ export default function ContactPage() {
 									</div>
 								</motion.div>
 							)}
-						</div>
+
+							{showError && (
+								<motion.div
+									initial={{opacity: 0, y: -10}}
+									animate={{opacity: 1, y: 0}}
+									exit={{opacity: 0}}
+									className='bg-red-500/10 border border-red-500/50 rounded-lg p-4 flex items-center gap-3'>
+									<svg
+										className='w-6 h-6 text-red-500 shrink-0'
+										fill='none'
+										stroke='currentColor'
+										viewBox='0 0 24 24'>
+										<path
+											strokeLinecap='round'
+											strokeLinejoin='round'
+											strokeWidth={2}
+											d='M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
+										/>
+									</svg>
+									<div>
+										<p className='text-red-500 font-semibold'>
+											Failed to send message
+										</p>
+										<p className='text-red-500/80 text-sm'>{errorMessage}</p>
+									</div>
+								</motion.div>
+							)}
+						</form>
 					</motion.div>
 				</div>
 			</div>
