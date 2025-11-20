@@ -186,6 +186,7 @@ function AddWorkTab({onCreated, pushToast}) {
 		{id: crypto.randomUUID(), file: null},
 	])
 	const [submitting, setSubmitting] = useState(false)
+	const [isDragging, setIsDragging] = useState(false)
 	const titlePreview = useMemo(
 		() => (titleImage ? URL.createObjectURL(titleImage) : null),
 		[titleImage]
@@ -234,6 +235,68 @@ function AddWorkTab({onCreated, pushToast}) {
 
 	const handleAddGalleryField = () => {
 		setGalleryFields((prev) => [...prev, {id: crypto.randomUUID(), file: null}])
+	}
+
+	const handleMultipleFiles = (files) => {
+		const fileArray = Array.from(files)
+		const validFiles = fileArray.filter((file) => {
+			if (!file.type.startsWith('image/')) {
+				pushToast({
+					variant: 'error',
+					message: `${file.name} is not an image file`,
+				})
+				return false
+			}
+			if (file.size > MAX_FILE_SIZE_BYTES) {
+				pushToast({
+					variant: 'error',
+					message: `${file.name} exceeds ${MAX_FILE_SIZE_MB}MB limit`,
+				})
+				return false
+			}
+			return true
+		})
+
+		if (validFiles.length > 0) {
+			const newFields = validFiles.map((file) => ({
+				id: crypto.randomUUID(),
+				file,
+			}))
+
+			setGalleryFields((prev) => {
+				// Remove empty fields and add new ones
+				const existingWithFiles = prev.filter((entry) => entry.file)
+				return [...existingWithFiles, ...newFields]
+			})
+
+			pushToast({
+				variant: 'success',
+				message: `Added ${validFiles.length} image${validFiles.length > 1 ? 's' : ''}`,
+			})
+		}
+	}
+
+	const handleDragOver = (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+		setIsDragging(true)
+	}
+
+	const handleDragLeave = (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+		setIsDragging(false)
+	}
+
+	const handleDrop = (e) => {
+		e.preventDefault()
+		e.stopPropagation()
+		setIsDragging(false)
+
+		const files = e.dataTransfer.files
+		if (files.length > 0) {
+			handleMultipleFiles(files)
+		}
 	}
 
 	const handleRemoveGalleryField = (id) => {
@@ -401,55 +464,123 @@ function AddWorkTab({onCreated, pushToast}) {
 			</div>
 
 			<div>
-				<div className='flex items-center justify-between'>
-					<label className='mb-2 block text-xs font-semibold uppercase tracking-wide'>
-						Additional Images
-					</label>
-					<button
-						type='button'
-						onClick={handleAddGalleryField}
-						className='text-sm font-semibold text-accent hover:text-accent-dark'
-						disabled={submitting}>
-						+ Add an image
-					</button>
-				</div>
-				<div className='space-y-4'>
-					{galleryWithPreview.map((field) => (
-						<div
-							key={field.id}
-							className='flex flex-col gap-3 rounded-xl border border-dashed border-border bg-background/90 px-4 py-3 md:flex-row md:items-center'>
+				<label className='mb-3 block text-xs font-semibold uppercase tracking-wide'>
+					Additional Images
+				</label>
+
+				{/* Drag and Drop Zone */}
+				<div
+					onDragOver={handleDragOver}
+					onDragLeave={handleDragLeave}
+					onDrop={handleDrop}
+					className={`relative rounded-xl border-2 border-dashed transition-all duration-200 ${
+						isDragging
+							? 'border-accent bg-accent/10'
+							: 'border-border bg-background/50 hover:border-accent/50'
+					}`}>
+					<div className='px-6 py-8 text-center'>
+						<div className='mb-4'>
+							<svg
+								className='mx-auto h-12 w-12 text-muted-foreground'
+								fill='none'
+								stroke='currentColor'
+								viewBox='0 0 24 24'>
+								<path
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									strokeWidth={2}
+									d='M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12'
+								/>
+							</svg>
+						</div>
+						<p className='mb-2 text-sm text-foreground font-medium'>
+							Drag and drop images here, or click to select
+						</p>
+						<p className='text-xs text-muted-foreground mb-4'>
+							You can select multiple images at once (max {MAX_FILE_SIZE_MB}MB each)
+						</p>
+						<label className='inline-block cursor-pointer rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-dark'>
+							Select Images
 							<input
 								type='file'
 								accept='image/*'
-								onChange={(event) =>
-									handleGalleryChange(field.id, event.target.files?.[0] || null)
-								}
+								multiple
+								className='hidden'
+								onChange={(e) => {
+									if (e.target.files && e.target.files.length > 0) {
+										handleMultipleFiles(e.target.files)
+										e.target.value = '' // Reset input
+									}
+								}}
 								disabled={submitting}
 							/>
-							<div className='flex flex-1 items-center justify-between gap-3 text-xs text-muted-foreground'>
-								<div className='flex items-center gap-3'>
-									<span>{field.file?.name || 'No file selected'}</span>
-									{field.file?._previewUrl && (
+						</label>
+					</div>
+				</div>
+
+				{/* Image Previews */}
+				{galleryWithPreview.filter((f) => f.file).length > 0 && (
+					<div className='mt-4'>
+						<div className='mb-2 flex items-center justify-between'>
+							<p className='text-xs font-semibold text-muted-foreground'>
+								{galleryWithPreview.filter((f) => f.file).length} image(s) selected
+							</p>
+							<button
+								type='button'
+								onClick={() => {
+									galleryFields.forEach((field) => {
+										if (field.file?._previewUrl) {
+											URL.revokeObjectURL(field.file._previewUrl)
+										}
+									})
+									setGalleryFields([{id: crypto.randomUUID(), file: null}])
+								}}
+								className='text-xs font-semibold text-red-500 hover:text-red-600'
+								disabled={submitting}>
+								Clear All
+							</button>
+						</div>
+						<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3'>
+							{galleryWithPreview
+								.filter((f) => f.file)
+								.map((field) => (
+									<div
+										key={field.id}
+										className='relative group rounded-lg overflow-hidden border border-border bg-background'>
 										<img
 											src={field.file._previewUrl}
-											alt='Preview'
-											className='h-12 w-12 rounded border border-border object-cover'
+											alt={field.file.name}
+											className='h-32 w-full object-cover'
 										/>
-									)}
-								</div>
-								{galleryFields.length > 1 && (
-									<button
-										type='button'
-										onClick={() => handleRemoveGalleryField(field.id)}
-										className='text-red-500 hover:text-red-600'
-										disabled={submitting}>
-										Remove
-									</button>
-								)}
-							</div>
+										<div className='absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors' />
+										<button
+											type='button'
+											onClick={() => handleRemoveGalleryField(field.id)}
+											className='absolute top-1 right-1 rounded-full bg-red-500 p-1.5 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600'
+											disabled={submitting}>
+											<svg
+												className='h-4 w-4'
+												fill='none'
+												stroke='currentColor'
+												viewBox='0 0 24 24'>
+												<path
+													strokeLinecap='round'
+													strokeLinejoin='round'
+													strokeWidth={2}
+													d='M6 18L18 6M6 6l12 12'
+												/>
+											</svg>
+										</button>
+										<div className='px-2 py-1 bg-background/90'>
+											<p className='text-xs text-muted-foreground truncate'>
+												{field.file.name}
+											</p>
+										</div>
+									</div>
+								))}
 						</div>
-					))}
-				</div>
+					</div>
+				)}
 			</div>
 
 			<div className='flex justify-end'>
