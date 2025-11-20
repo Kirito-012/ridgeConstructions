@@ -67,7 +67,7 @@ const HeroSliderSection = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-screen md:h-[95vh] overflow-hidden bg-black">
+    <div className="relative w-full h-[95vh] overflow-hidden bg-black">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentProject}
