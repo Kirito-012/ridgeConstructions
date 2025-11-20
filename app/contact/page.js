@@ -159,9 +159,9 @@ export default function ContactPage() {
 										Address
 									</h3>
 									<p className='text-muted-foreground'>
-										46 squire Ellis drive,
+										46 Squire Ellis Drive,
 										<br />
-										Brampton,Ontario L6P 4C2
+										Brampton, Ontario L6P 4C2
 									</p>
 								</div>
 							</motion.div>

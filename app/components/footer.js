@@ -75,7 +75,7 @@ export default function Footer() {
 								Services
 							</h4>
 							<ul className='space-y-2 sm:space-y-3'>
-								{['Restaurant', 'Healthcare', 'Commercial Offices',].map(
+								{['Restaurant', 'Healthcare', 'Commercial Offices'].map(
 									(service) => (
 										<li key={service}>
 											<a
@@ -94,7 +94,7 @@ export default function Footer() {
 								Contact
 							</h4>
 							<div className='space-y-2 sm:space-y-3 text-sm text-gray-400'>
-								<p>46 squire Ellis drive,Brampton,Ontario L6P 4C2</p>
+								<p>46 Squire Ellis Drive, Brampton, Ontario L6P 4C2</p>
 								<p>+1 4164333383</p>
 								<p>Info@frontridge.ca</p>
 							</div>
