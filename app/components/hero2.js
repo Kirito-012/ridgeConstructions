@@ -93,7 +93,7 @@ export default function ConstructionHero() {
 				<motion.div
 					variants={item}
 					className='mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 justify-center px-4'>
-					<Link href='/contacts'>
+					<Link href='/contact'>
 						<motion.button
 							type='button'
 							onClick={() => {
