@@ -307,7 +307,7 @@ export default function ContactPage() {
 							<button
 								type='submit'
 								disabled={isSubmitting}
-								className='w-full bg-accent hover:bg-accent/90 text-white font-bold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-accent/40 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-lg'>
+								className='w-full bg-accent hover:bg-accent/90 text-always-white font-bold py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-accent/40 hover:scale-[1.02] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed flex items-center justify-center gap-3 text-lg'>
 								{isSubmitting ? (
 									<>
 										<svg
