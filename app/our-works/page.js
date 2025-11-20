@@ -1,8 +1,8 @@
 'use client'
 
-import {motion, useInView} from 'framer-motion'
-import {useRef, useState, useEffect, useCallback} from 'react'
-import {useRouter} from 'next/navigation'
+import {motion} from 'framer-motion'
+import {useState, useEffect, useCallback} from 'react'
+import {useRouter, useSearchParams} from 'next/navigation'
 import {fetchWorks, preloadImages} from '@/lib/works'
 
 function ProjectDetailPage({work, onBack}) {
@@ -115,6 +115,14 @@ function WorkCard({work, onClick}) {
 				<h3 className='mb-2 text-2xl font-bold text-card-foreground group-hover:text-accent transition-colors duration-200'>
 					{work.title}
 				</h3>
+				{work.category && (
+					<div className='mb-3'>
+						{/* <span className='inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent border border-accent/20'> */}
+						<span className='text-xs font-semibold text-accent uppercase'>
+							{work.category}
+						</span>
+					</div>
+				)}
 				<p className='text-muted-foreground leading-relaxed line-clamp-3'>
 					{work.description}
 				</p>
@@ -129,7 +137,8 @@ const CATEGORIES = [
 	{id: 'All', label: 'All'},
 	{id: 'Restaurants', label: 'Restaurants'},
 	{id: 'Healthcare', label: 'Healthcare'},
-	{id: 'Commercial Offices', label: 'Commercial Offices'},
+	{id: 'Corporate Offices', label: 'Corporate Offices'},
+	{id: 'Salons & Spa', label: 'Salons & Spa'},
 ]
 
 export default function OurWorkPage() {
@@ -139,6 +148,7 @@ export default function OurWorkPage() {
 	const [error, setError] = useState(null)
 	const [activeTab, setActiveTab] = useState('All')
 	const router = useRouter()
+	const searchParams = useSearchParams()
 
 	useEffect(() => {
 		const loadWorks = async () => {
@@ -161,6 +171,18 @@ export default function OurWorkPage() {
 
 		loadWorks()
 	}, [])
+
+	// Set active tab from URL parameter
+	useEffect(() => {
+		const category = searchParams.get('category')
+		if (category) {
+			// Check if the category exists in CATEGORIES
+			const validCategory = CATEGORIES.find((cat) => cat.id === category)
+			if (validCategory) {
+				setActiveTab(category)
+			}
+		}
+	}, [searchParams])
 
 	const handleCardClick = useCallback(
 		(work) => {

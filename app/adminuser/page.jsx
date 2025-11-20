@@ -421,7 +421,8 @@ function AddWorkTab({onCreated, pushToast}) {
 					disabled={submitting}>
 					<option value='Restaurants'>Restaurants</option>
 					<option value='Healthcare'>Healthcare</option>
-					<option value='Commercial Offices'>Commercial Offices</option>
+					<option value='Corporate Offices'>Corporate Offices</option>
+					<option value='Salons & Spa'>Salons & Spa</option>
 				</select>
 			</div>
 
@@ -988,7 +989,8 @@ export default function AdminDashboardPage() {
 									className='w-full rounded-xl border border-border bg-background px-3 py-2'>
 									<option value='Restaurants'>Restaurants</option>
 									<option value='Healthcare'>Healthcare</option>
-									<option value='Commercial Offices'>Commercial Offices</option>
+									<option value='Corporate Offices'>Corporate Offices</option>
+									<option value='Salons & Spa'>Salons & Spa</option>
 								</select>
 							</div>
 							<div>
@@ -1058,7 +1060,7 @@ export default function AdminDashboardPage() {
 														? [
 																...(prev.pendingGallery || []),
 																e.target.files[0],
-														  ]
+															]
 														: prev.pendingGallery,
 												}))
 											}

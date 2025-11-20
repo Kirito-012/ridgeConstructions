@@ -80,12 +80,12 @@ function ServiceCard({service, index}) {
 				<div className='absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent dark:from-black dark:via-black/50 dark:to-transparent' />
 
 				<div className='absolute top-6 right-6'>
-						<motion.div
-							className='flex h-16 w-16 items-center justify-center bg-accent text-always-white'
-							whileHover={{scale: 1.1, rotate: 5}}
-							transition={{duration: 0.3}}>
-							<service.icon className='h-8 w-8 text-always-white' />
-						</motion.div>
+					<motion.div
+						className='flex h-16 w-16 items-center justify-center bg-accent text-always-white'
+						whileHover={{scale: 1.1, rotate: 5}}
+						transition={{duration: 0.3}}>
+						<service.icon className='h-8 w-8 text-always-white' />
+					</motion.div>
 				</div>
 
 				<div className='absolute bottom-6 left-6'>
@@ -116,8 +116,6 @@ function ServiceCard({service, index}) {
 						</motion.li>
 					))}
 				</ul>
-
-
 			</div>
 
 			<div className='absolute top-0 left-0 h-20 w-20 border-t-4 border-l-4 border-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100' />
@@ -130,7 +128,7 @@ export default function ServicesPage() {
 	const services = [
 		{
 			icon: Building2Icon,
-			category: 'Hospitality',
+			category: 'Restaurants',
 			title: 'Restaurants',
 			description:
 				'Create unforgettable dining experiences with our specialized restaurant construction and design services. We build spaces that blend ambiance, functionality, and culinary excellence.',
@@ -162,7 +160,7 @@ export default function ServicesPage() {
 		},
 		{
 			icon: WrenchIcon,
-			category: 'Corporate',
+			category: 'Corporate Offices',
 			title: 'Office Renovation',
 			description:
 				'Transform your workspace into a modern, productive environment. Our office renovation services enhance functionality while reflecting your company culture and brand.',

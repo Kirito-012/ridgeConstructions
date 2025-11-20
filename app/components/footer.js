@@ -75,17 +75,20 @@ export default function Footer() {
 								Services
 							</h4>
 							<ul className='space-y-2 sm:space-y-3'>
-								{['Restaurant', 'Healthcare', 'Commercial Offices'].map(
-									(service) => (
-										<li key={service}>
-											<a
-												href='/'
-												className='text-gray-400 hover:text-[color:var(--accent)] transition-colors text-sm'>
-												{service}
-											</a>
-										</li>
-									)
-								)}
+								{[
+									'Restaurant',
+									'Healthcare',
+									'Corporate Offices',
+									'Salons & Spa',
+								].map((service) => (
+									<li key={service}>
+										<a
+											href='/'
+											className='text-gray-400 hover:text-[color:var(--accent)] transition-colors text-sm'>
+											{service}
+										</a>
+									</li>
+								))}
 							</ul>
 						</div>
 

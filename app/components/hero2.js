@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import {useEffect, useState} from 'react'
 
-// Stagger container
 const container = {
 	hidden: {opacity: 0},
 	show: {
@@ -16,7 +15,6 @@ const container = {
 		},
 	},
 }
-// Individual item
 const item = {
 	hidden: {opacity: 0, y: 30},
 	show: {opacity: 1, y: 0, transition: {duration: 0.7, ease: 'easeOut'}},
@@ -43,7 +41,6 @@ export default function ConstructionHero() {
 
 	return (
 		<section className='relative min-h-dvh flex items-center justify-center bg-black overflow-hidden py-20 sm:py-0'>
-			{/* Gradient Overlay - Always Dark */}
 			<motion.div
 				initial={{opacity: 0}}
 				animate={{opacity: 1}}
@@ -124,7 +121,7 @@ export default function ConstructionHero() {
 					<motion.button
 						type='button'
 						onClick={() => {
-							window.location.href = 'tel:+15551234567'
+							window.location.href = 'tel:+14164333383'
 						}}
 						whileHover={{
 							scale: 1.05,
@@ -146,7 +143,7 @@ export default function ConstructionHero() {
 								d='M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.40 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z'
 							/>
 						</svg>
-						<span className='hidden xs:inline'>4164333383</span>
+						<span className='hidden xs:inline'>+14164333383</span>
 						<span className='xs:hidden'>Call Us</span>
 					</motion.button>
 				</motion.div>

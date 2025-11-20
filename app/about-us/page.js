@@ -57,8 +57,8 @@ function TestimonialCard({testimonial}) {
 
 export default function AboutPage() {
 	const stats = [
-		{icon: Award, number: '300+', label: 'Projects Completed'},
-		{icon: Clock, number: '15+', label: 'Years Experience'},
+		{icon: Award, number: '100+', label: 'Projects Completed'},
+		{icon: Clock, number: '8+', label: 'Years Experience'},
 		{icon: Shield, number: '99%', label: 'Client Satisfaction'},
 		{icon: Users, number: '150+', label: 'Expert Team Members'},
 	]
