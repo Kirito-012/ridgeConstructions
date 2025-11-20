@@ -252,7 +252,11 @@ export default function OurWorkPage() {
 							initial={{opacity: 0, y: 10}}
 							whileInView={{opacity: 1, y: 0}}
 							viewport={{once: true}}
-							transition={{duration: 0.3, delay: index * 0.05, ease: [0.4, 0, 0.2, 1]}}
+							transition={{
+								duration: 0.3,
+								delay: index * 0.05,
+								ease: [0.4, 0, 0.2, 1],
+							}}
 							onClick={() => setActiveTab(category.id)}
 							whileHover={{scale: 1.05}}
 							whileTap={{scale: 0.95}}
