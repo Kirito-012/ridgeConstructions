@@ -144,7 +144,7 @@ function TabSidebar({activeTab, onChange}) {
 							className={classNames(
 								'w-full rounded-xl px-4 py-2.5 text-left font-semibold transition',
 								active
-									? 'bg-accent text-white shadow-lg'
+									? 'bg-accent text-always-white shadow-lg'
 									: 'bg-card/60 text-foreground hover:bg-card'
 							)}>
 							{tab.label}
@@ -180,6 +180,7 @@ async function uploadImageToCloud(file, folder) {
 function AddWorkTab({onCreated, pushToast}) {
 	const [name, setName] = useState('')
 	const [description, setDescription] = useState('')
+	const [category, setCategory] = useState('Restaurants')
 	const [titleImage, setTitleImage] = useState(null)
 	const [galleryFields, setGalleryFields] = useState(() => [
 		{id: crypto.randomUUID(), file: null},
@@ -197,7 +198,6 @@ function AddWorkTab({onCreated, pushToast}) {
 				if (field.file?._previewUrl) URL.revokeObjectURL(field.file._previewUrl)
 			})
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	const galleryWithPreview = useMemo(
@@ -214,6 +214,7 @@ function AddWorkTab({onCreated, pushToast}) {
 	const resetForm = () => {
 		setName('')
 		setDescription('')
+		setCategory('Restaurants')
 		setTitleImage(null)
 		setGalleryFields([{id: crypto.randomUUID(), file: null}])
 	}
@@ -299,6 +300,7 @@ function AddWorkTab({onCreated, pushToast}) {
 				body: JSON.stringify({
 					name: name.trim(),
 					description: description.trim(),
+					category,
 					titleImageUrl,
 					galleryImageUrls,
 				}),
@@ -341,6 +343,21 @@ function AddWorkTab({onCreated, pushToast}) {
 					className='w-full rounded-xl border border-border bg-background px-3 py-2.5 focus:border-accent focus:outline-none'
 					disabled={submitting}
 				/>
+			</div>
+
+			<div>
+				<label className='mb-2 block text-xs font-semibold uppercase tracking-wide'>
+					Category
+				</label>
+				<select
+					value={category}
+					onChange={(event) => setCategory(event.target.value)}
+					className='w-full rounded-xl border border-border bg-background px-3 py-2.5 focus:border-accent focus:outline-none'
+					disabled={submitting}>
+					<option value='Restaurants'>Restaurants</option>
+					<option value='Healthcare'>Healthcare</option>
+					<option value='Commercial Offices'>Commercial Offices</option>
+				</select>
 			</div>
 
 			<div>
@@ -527,6 +544,7 @@ function ManageWorkTab({refreshKey, pushToast, onEdit, onDelete}) {
 					<thead className='bg-muted/50 text-left text-xs uppercase tracking-widest text-muted-foreground'>
 						<tr>
 							<th className='px-6 py-3'>Title</th>
+							<th className='px-6 py-3'>Category</th>
 							<th className='px-6 py-3'>Description</th>
 							<th className='px-6 py-3'>Images</th>
 							<th className='px-6 py-3'>Created</th>
@@ -540,6 +558,11 @@ function ManageWorkTab({refreshKey, pushToast, onEdit, onDelete}) {
 								className='hover:bg-secondary/40'>
 								<td className='px-6 py-4 font-semibold text-foreground'>
 									{work.name}
+								</td>
+								<td className='px-6 py-4 text-muted-foreground'>
+									<span className='inline-flex rounded-full bg-accent/10 px-2 py-1 text-xs font-semibold text-accent'>
+										{work.category || 'Restaurants'}
+									</span>
 								</td>
 								<td className='px-6 py-4 text-muted-foreground'>
 									<p className='line-clamp-2'>{work.description}</p>
@@ -634,6 +657,7 @@ export default function AdminDashboardPage() {
 	const handleEdit = (work) => {
 		setEditingWork({
 			...work,
+			category: work.category || 'Restaurants',
 			galleryImageUrls: work.galleryImageUrls || work.gallery || [],
 			pendingGallery: [],
 			pendingTitleFile: null,
@@ -697,6 +721,7 @@ export default function AdminDashboardPage() {
 			const payload = {
 				name: editingWork.name?.trim(),
 				description: editingWork.description?.trim(),
+				category: editingWork.category?.trim(),
 				titleImageUrl,
 				galleryImageUrls,
 			}
@@ -793,7 +818,7 @@ export default function AdminDashboardPage() {
 							<button
 								type='button'
 								onClick={closeModal}
-								className='rounded-full px-4 py-2 text-2xl text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors'>
+								className='cursor-pointer rounded-full px-4 py-2 text-2xl text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors'>
 								✕
 							</button>
 						</div>
@@ -812,6 +837,24 @@ export default function AdminDashboardPage() {
 									className='w-full rounded-xl border border-border bg-background px-3 py-2'
 									required
 								/>
+							</div>
+							<div>
+								<label className='mb-1 block text-xs font-semibold uppercase tracking-wide'>
+									Category
+								</label>
+								<select
+									value={editingWork.category}
+									onChange={(e) =>
+										setEditingWork((prev) => ({
+											...prev,
+											category: e.target.value,
+										}))
+									}
+									className='w-full rounded-xl border border-border bg-background px-3 py-2'>
+									<option value='Restaurants'>Restaurants</option>
+									<option value='Healthcare'>Healthcare</option>
+									<option value='Commercial Offices'>Commercial Offices</option>
+								</select>
 							</div>
 							<div>
 								<label className='mb-1 block text-xs font-semibold uppercase tracking-wide'>
@@ -867,7 +910,7 @@ export default function AdminDashboardPage() {
 									<label className='text-xs font-semibold uppercase tracking-wide'>
 										Gallery Images
 									</label>
-									<label className='rounded-xl border border-dashed border-border px-3 py-1 text-xs font-semibold text-accent hover:text-accent-dark cursor-pointer'>
+									<label className='cursor-pointer rounded-xl border border-dashed border-border px-3 py-1 text-xs font-semibold text-accent hover:text-accent-dark'>
 										+ Add image
 										<input
 											type='file'
@@ -899,7 +942,7 @@ export default function AdminDashboardPage() {
 											/>
 											<button
 												type='button'
-												className='absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white'
+												className='absolute -right-2 -top-2 cursor-pointer rounded-full bg-red-500 h-7 w-7 p-1 text-always-white'
 												onClick={() =>
 													setEditingWork((prev) => ({
 														...prev,
@@ -908,7 +951,7 @@ export default function AdminDashboardPage() {
 														),
 													}))
 												}>
-												✕
+												x
 											</button>
 										</div>
 									))}
@@ -923,7 +966,7 @@ export default function AdminDashboardPage() {
 											/>
 											<button
 												type='button'
-												className='absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white'
+												className='absolute -right-2 -top-2 cursor-pointer rounded-full bg-red-500 h-7 w-7 p-1 text-always-white'
 												onClick={() =>
 													setEditingWork((prev) => ({
 														...prev,
@@ -932,24 +975,24 @@ export default function AdminDashboardPage() {
 														),
 													}))
 												}>
-												✕
+												x
 											</button>
 										</div>
 									))}
 								</div>
 							</div>
-							<div className='sticky bottom-0 bg-card pt-4 border-t border-border mt-6'>
-								<div className='flex justify-end gap-3'>
+							<div className='sticky bottom-0 bg-card py-3 px-3 border-t border-border mt-6'>
+								<div className='flex items-center justify-end gap-3'>
 									<button
 										type='button'
 										onClick={closeModal}
-										className='rounded-xl border border-border px-4 py-2 text-sm font-semibold'>
+										className='cursor-pointer border border-border px-4 py-2 text-sm font-semibold'>
 										Cancel
 									</button>
 									<button
 										type='submit'
 										disabled={modalSubmitting}
-										className='rounded-xl bg-accent px-5 py-2 text-sm font-semibold text-white shadow-lg disabled:opacity-70'>
+										className='cursor-pointer bg-accent px-5 py-2 text-sm font-semibold text-always-white shadow-lg disabled:opacity-70'>
 										{modalSubmitting ? 'Saving...' : 'Save Changes'}
 									</button>
 								</div>

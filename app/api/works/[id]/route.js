@@ -74,6 +74,9 @@ export async function PUT(request, context) {
 		) {
 			update.description = payload.description.trim()
 		}
+		if (typeof payload?.category === 'string' && payload.category.trim()) {
+			update.category = payload.category.trim()
+		}
 		if (
 			typeof payload?.titleImageUrl === 'string' &&
 			payload.titleImageUrl.trim()

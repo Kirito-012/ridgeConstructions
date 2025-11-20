@@ -45,6 +45,7 @@ export async function POST(request) {
 		const payload = await request.json()
 		const name = payload?.name?.trim()
 		const description = payload?.description?.trim() || ''
+		const category = payload?.category?.trim() || 'Restaurants'
 		const titleImageUrl = payload?.titleImageUrl?.trim()
 		const galleryImageUrls = Array.isArray(payload?.galleryImageUrls)
 			? payload.galleryImageUrls.filter(Boolean)
@@ -61,6 +62,7 @@ export async function POST(request) {
 		const result = await worksCollection.insertOne({
 			name,
 			description,
+			category,
 			titleImageUrl,
 			galleryImageUrls,
 			createdAt: new Date(),
@@ -71,6 +73,7 @@ export async function POST(request) {
 				_id: result.insertedId,
 				name,
 				description,
+				category,
 				titleImageUrl,
 				galleryImageUrls,
 				createdAt: new Date(),

@@ -154,11 +154,19 @@ function WorkCard({work, index, onClick}) {
 	)
 }
 
+const CATEGORIES = [
+	{id: 'All', label: 'All'},
+	{id: 'Restaurants', label: 'Restaurants'},
+	{id: 'Healthcare', label: 'Healthcare'},
+	{id: 'Commercial Offices', label: 'Commercial Offices'},
+]
+
 export default function OurWorkPage() {
 	const [works, setWorks] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [navigating, setNavigating] = useState(false)
 	const [error, setError] = useState(null)
+	const [activeTab, setActiveTab] = useState('All')
 	const router = useRouter()
 
 	useEffect(() => {
@@ -193,6 +201,11 @@ export default function OurWorkPage() {
 		},
 		[router]
 	)
+
+	const filteredWorks =
+		activeTab === 'All'
+			? works
+			: works.filter((work) => work.category === activeTab)
 
 	if (loading) {
 		return (
@@ -258,22 +271,24 @@ export default function OurWorkPage() {
 
 			<div className='mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-0'>
 				<div className='flex flex-wrap gap-4 mb-8'>
-					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
-						All
-					</button>
-					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
-						Restaurants
-					</button>
-					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
-						Healthcare
-					</button>
-					<button className='px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-always-white rounded-lg font-semibold transition-colors duration-200 shadow-md hover:shadow-lg'>
-						Commercial Offices
-					</button>
+					{CATEGORIES.map((category) => (
+						<motion.button
+							key={category.id}
+							onClick={() => setActiveTab(category.id)}
+							whileHover={{scale: 1.05}}
+							whileTap={{scale: 0.95}}
+							className={`px-6 py-2.5 font-semibold transition-all duration-200 shadow-md hover:shadow-lg will-change-transform ${
+								activeTab === category.id
+									? 'bg-orange-500 text-always-white'
+									: 'border-[1.5px] border-orange-500 text-foreground hover:bg-orange-500/10'
+							}`}>
+							{category.label}
+						</motion.button>
+					))}
 				</div>
-				{works.length > 0 ? (
+				{filteredWorks.length > 0 ? (
 					<div className='grid gap-8 md:grid-cols-2'>
-						{works.map((work, i) => (
+						{filteredWorks.map((work, i) => (
 							<WorkCard
 								key={work.id}
 								work={work}
@@ -285,7 +300,9 @@ export default function OurWorkPage() {
 				) : (
 					<div className='text-center py-12'>
 						<p className='text-muted-foreground text-lg'>
-							No works available at the moment.
+							{activeTab === 'All'
+								? 'No works available at the moment.'
+								: `No works found in ${activeTab} category.`}
 						</p>
 					</div>
 				)}
