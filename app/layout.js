@@ -1,6 +1,7 @@
 import {Geist, Geist_Mono, Jost} from 'next/font/google'
 import './globals.css'
 import AppChrome from './components/app-chrome'
+import { icons } from 'lucide-react'
 
 const geistSans = Geist({
 	variable: '--font-geist-sans',
@@ -21,6 +22,11 @@ const jost = Jost({
 export const metadata = {
 	title: 'Ridge Constructions',
 	description: 'Building your dreams with precision and care.',
+	icons: {
+		icon: '/fav.png',
+		shortcut: '/fav.png',
+		apple: '/fav.png',
+	},
 }
 
 export default function RootLayout({children}) {
