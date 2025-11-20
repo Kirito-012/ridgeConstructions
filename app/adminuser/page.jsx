@@ -271,7 +271,9 @@ function AddWorkTab({onCreated, pushToast}) {
 
 			pushToast({
 				variant: 'success',
-				message: `Added ${validFiles.length} image${validFiles.length > 1 ? 's' : ''}`,
+				message: `Added ${validFiles.length} image${
+					validFiles.length > 1 ? 's' : ''
+				}`,
 			})
 		}
 	}
@@ -497,7 +499,8 @@ function AddWorkTab({onCreated, pushToast}) {
 							Drag and drop images here, or click to select
 						</p>
 						<p className='text-xs text-muted-foreground mb-4'>
-							You can select multiple images at once (max {MAX_FILE_SIZE_MB}MB each)
+							You can select multiple images at once (max {MAX_FILE_SIZE_MB}MB
+							each)
 						</p>
 						<label className='inline-block cursor-pointer rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-accent-dark'>
 							Select Images
@@ -523,7 +526,8 @@ function AddWorkTab({onCreated, pushToast}) {
 					<div className='mt-4'>
 						<div className='mb-2 flex items-center justify-between'>
 							<p className='text-xs font-semibold text-muted-foreground'>
-								{galleryWithPreview.filter((f) => f.file).length} image(s) selected
+								{galleryWithPreview.filter((f) => f.file).length} image(s)
+								selected
 							</p>
 							<button
 								type='button'
