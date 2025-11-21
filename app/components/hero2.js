@@ -77,7 +77,7 @@ export default function ConstructionHero() {
 						animate={{opacity: 1, color: '#e55a24'}}
 						transition={{delay: 0.8, duration: 0.8}}
 						className='text-[#e55a24]'>
-						One Project at a Time
+						Turning Vision into Reality
 					</motion.span>
 				</motion.h1>
 
