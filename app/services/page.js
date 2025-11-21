@@ -174,22 +174,7 @@ export default function ServicesPage() {
 			image:
 				'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
 		},
-		{
-			icon: Building2,
-			category: 'Residential',
-			title: 'Custom Home Construction',
-			description:
-				'Transform your vision into reality with our bespoke home building services. From concept to completion, we craft homes that reflect your lifestyle and aspirations.',
-			features: [
-				'Luxury custom homes and estates',
-				'Architectural design consultation',
-				'High-end material selection',
-				'Smart home integration',
-				'Sustainable building practices',
-			],
-			image:
-				'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-		},
+	
 		{
 			icon: Hammer,
 			category: 'Commercial',
@@ -270,6 +255,22 @@ export default function ServicesPage() {
 			image:
 				'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
 		},
+			{
+			icon: Building2,
+			category: 'Residential',
+			title: 'Custom Home Construction',
+			description:
+				'Transform your vision into reality with our bespoke home building services. From concept to completion, we craft homes that reflect your lifestyle and aspirations.',
+			features: [
+				'Luxury custom homes and estates',
+				'Architectural design consultation',
+				'High-end material selection',
+				'Smart home integration',
+				'Sustainable building practices',
+			],
+			image:
+				'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+		}
 	]
 
 	return (
