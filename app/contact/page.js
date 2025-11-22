@@ -228,7 +228,9 @@ export default function ContactPage() {
 						animate={{opacity: 1, x: 0}}
 						transition={{duration: 0.7, delay: 0.3}}
 						className='bg-card border border-border rounded-2xl shadow-xl p-8 lg:p-10'>
-						<form className='space-y-6'>
+						<form
+							onSubmit={handleSubmit}
+							className='space-y-6'>
 							<div>
 								<label
 									htmlFor='fullName'
@@ -244,7 +246,7 @@ export default function ContactPage() {
 									required
 									disabled={isSubmitting}
 									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed'
-									placeholder='John Doe'
+									placeholder='Your Name'
 								/>
 							</div>
 
@@ -262,7 +264,7 @@ export default function ContactPage() {
 									onChange={handleChange}
 									disabled={isSubmitting}
 									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed'
-									placeholder='+1 (555) 123-4567'
+									placeholder='Your Phone Number'
 								/>
 							</div>
 
@@ -281,7 +283,7 @@ export default function ContactPage() {
 									required
 									disabled={isSubmitting}
 									className='w-full px-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent text-foreground placeholder-muted-foreground transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed'
-									placeholder='john@example.com'
+									placeholder='Your Email Address'
 								/>
 							</div>
 
