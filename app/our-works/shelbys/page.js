@@ -1,4 +1,3 @@
-// app/our-works/shelbys/page.js
 import ProjectDetail from '../../components/projectdetails';
 
 export const metadata = {

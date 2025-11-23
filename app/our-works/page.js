@@ -1,5 +1,3 @@
-// app/our-works/page.js   ← LEFT-ALIGNED FILTERS + MOBILE DRAWER
-
 'use client';
 
 import { motion } from 'framer-motion';
@@ -8,7 +6,7 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 const WORKS = [
-	  {
+  {
     title: "Secret Kitchen",
     category: "Restaurants",
     image: "https://res.cloudinary.com/duor8d5e3/image/upload/v1763632146/works/title/uzbg57hamqbjrsizgquv.jpg",
@@ -20,24 +18,22 @@ const WORKS = [
     image: "https://res.cloudinary.com/duor8d5e3/image/upload/v1763624657/works/title/nv1vmfnuzwocwsa0xtxg.jpg",
     folder: "shelbys"
   },
-    {
+  {
     title: "Mabelle Dental",
     category: "Healthcare",
-
     image: "https://res.cloudinary.com/duor8d5e3/image/upload/v1763622599/works/title/ys6dc8hlj68y1c7e1wsz.jpg",
     folder: "mabelle-dental"
   },
-    {
+  {
     title: "Greenbook Dentistry",
     category: "Healthcare",
-
     image: "https://res.cloudinary.com/duor8d5e3/image/upload/v1763622058/works/title/g4waoqwfsfgayqhmdeia.jpg",
     folder: "greenbook-dentistry"
   },
-   {
+  {
     title: "Dough Box",
     category: "Restaurants",
-    description: "Modern fast-food restaurant with high-traffic layout and efficient workflows.Superior design for quick service and customer satisfaction.",
+    description: "Modern fast-food restaurant with high-traffic layout and efficient workflows. Superior design for quick service and customer satisfaction.",
     image: "https://res.cloudinary.com/duor8d5e3/image/upload/v1763493501/works/title/jkqhentb42rhbmbk1cro.jpg",
     folder: "dough-box"
   },
@@ -48,10 +44,8 @@ const WORKS = [
     image: "https://res.cloudinary.com/duor8d5e3/image/upload/v1763491433/works/title/jpv3sae10gpugz4vqwup.jpg",
     folder: "burger-king"
   },
-
-
-
 ];
+
 const CATEGORIES = [
   { id: 'All', label: 'All' },
   { id: 'Restaurants', label: 'Restaurants' },
@@ -90,7 +84,7 @@ export default function OurWorksPage() {
 
   return (
     <div className="min-h-screen bg-background py-20 px-4 sm:px-6 lg:px-8">
-      {/* Header */}
+
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -106,9 +100,8 @@ export default function OurWorksPage() {
         </p>
       </motion.div>
 
-      {/* FILTERS — LEFT ALIGNED + MOBILE DRAWER */}
       <div className="max-w-7xl mx-auto mb-12">
-        {/* Desktop: Left-aligned filters */}
+
         <div className="hidden md:flex flex-wrap gap-4">
           {CATEGORIES.map((category, index) => (
             <motion.button
@@ -131,7 +124,6 @@ export default function OurWorksPage() {
           ))}
         </div>
 
-        {/* Mobile: Filter Button */}
         <div className="md:hidden">
           <button
             onClick={() => setMobileFiltersOpen(true)}
@@ -146,7 +138,6 @@ export default function OurWorksPage() {
         </div>
       </div>
 
-      {/* Mobile Filter Drawer */}
       {mobileFiltersOpen && (
         <div className="fixed inset-0 z-50 flex">
           <div className="absolute inset-0 bg-black/50" onClick={() => setMobileFiltersOpen(false)} />
@@ -186,7 +177,6 @@ export default function OurWorksPage() {
         </div>
       )}
 
-      {/* Projects Grid */}
       <div className="max-w-7xl mx-auto grid gap-8 md:grid-cols-2">
         {filtered.map((work) => (
           <Link key={work.folder} href={`/our-works/${work.folder}`}>
@@ -202,10 +192,8 @@ export default function OurWorksPage() {
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
-                  placeholder="blur"
-                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
               </div>
 
               <div className="p-6">

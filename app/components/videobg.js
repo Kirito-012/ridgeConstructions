@@ -168,7 +168,6 @@ const HeroSliderSection = () => {
 	)
 }
 
-// Memoized navigation button
 const NavButton = memo(({direction, onClick}) => {
 	const isLeft = direction === 'left'
 

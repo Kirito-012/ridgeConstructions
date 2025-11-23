@@ -1,4 +1,3 @@
-// app/our-works/dough-box/page.js
 import ProjectDetail from '../../components/projectdetails';
 
 export const metadata = {

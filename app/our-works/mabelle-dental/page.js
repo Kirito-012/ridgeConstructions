@@ -1,4 +1,3 @@
-// app/our-works/mabelle-dental/page.js
 import ProjectDetail from '../../components/projectdetails';
 
 export const metadata = {

@@ -1,4 +1,3 @@
-// app/our-works/burger-king/page.js
 import ProjectDetail from '../../components/projectdetails';
 
 export const metadata = {

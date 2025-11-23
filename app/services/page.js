@@ -275,37 +275,34 @@ export default function ServicesPage() {
 
 	return (
 		<div className='min-h-screen bg-background'>
-			<section className='relative flex h-[50vh] items-center justify-center overflow-hidden sm:h-[60vh] pt-20 sm:pt-22'>
-				<div
-					className='absolute inset-0 bg-cover bg-center'
-					style={{
-						backgroundImage:
-							"url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600&q=80')",
-						filter: 'brightness(0.4)',
-					}}
-				/>
-				<div className='absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black dark:from-black/70 dark:via-black/50 dark:to-black' />
+<section className='relative flex items-center justify-center overflow-hidden py-20 sm:py-24 md:py-28'>
+  <div
+    className='absolute inset-0 bg-cover bg-center'
+    style={{
+      backgroundImage: "url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=1600&q=80')",
+      filter: 'brightness(0.4)',
+    }}
+  />
+  <div className='absolute inset-0 bg-linear-to-b from-black/70 via-black/50 to-black dark:from-black/70 dark:via-black/50 dark:to-black' />
 
-				<div className='relative z-10 px-4 text-center max-w-5xl mx-auto'>
-					<motion.div
-						initial={{opacity: 0, y: 30}}
-						animate={{opacity: 1, y: 0}}
-						transition={{duration: 0.8}}>
-						<span className='inline-block mb-4 sm:mb-6 border border-accent px-4 sm:px-6 py-2 sm:py-3 text-xs font-bold uppercase tracking-widest text-accent'>
-							Our Services
-						</span>
-						<h1 className='mb-4 sm:mb-6 text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-foreground'>
-							<span className='text-always-white'>Building Excellence</span>
-							<br />
-							<span className='text-accent'>Across Every Sector</span>
-						</h1>
-						<p className='mx-auto max-w-3xl text-lg sm:text-xl leading-relaxed text-muted-foreground'>
-							From residential masterpieces to commercial landmarks, we deliver
-							construction solutions that stand the test of time.
-						</p>
-					</motion.div>
-				</div>
-			</section>
+  <div className='relative z-10 px-4 text-center max-w-5xl mx-auto'>
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className='space-y-6 sm:space-y-8'>
+      <span className='inline-block border border-accent px-4 sm:px-6 py-2 sm:py-3 text-xs font-bold uppercase tracking-widest text-accent'>
+        Our Services
+      </span>
+
+      <h1 className='text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-always-white'>
+        Building Excellence
+        <br />
+        <span className='text-accent'>Across Every Sector</span>
+      </h1>
+
+      <p className='mx-auto max-w-3xl text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground'>
+        From residential masterpieces to commercial landmarks, we deliver construction solutions that stand the test of time.
+      </p>
+    </motion.div>
+  </div>
+</section>
 
 			<section className='py-16 sm:py-24 px-4 bg-card'>
 				<div className='mx-auto max-w-7xl'>

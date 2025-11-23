@@ -188,9 +188,8 @@ export default function ServicesSection() {
 			<div className='absolute top-0 left-1/4 w-96 h-96 bg-accent/5 blur-3xl rounded-full'></div>
 			<div className='absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 blur-3xl rounded-full'></div>
 
-			<div className='max-w-7xl mx-auto relative z-10'>
-				{/* Header */}
-				<motion.div
+		<div className='max-w-7xl mx-auto relative z-10'>
+			<motion.div
 					className='text-center mb-16'
 					initial={{opacity: 0, y: 20}}
 					whileInView={{opacity: 1, y: 0}}
@@ -206,10 +205,9 @@ export default function ServicesSection() {
 						Whatever your project demands, our expert teams deliver with
 						precision, quality, and unwavering commitment to excellence
 					</p>
-				</motion.div>
+			</motion.div>
 
-				{/* Services Grid */}
-				<div className='grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3'>
+			<div className='grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3'>
 					{services.map((service, i) => (
 						<ServiceCard
 							key={i}
